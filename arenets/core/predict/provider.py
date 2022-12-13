@@ -1,7 +1,7 @@
 import collections
 
-from arekit.common.data import const
-from arekit.common.labels.scaler.base import BaseLabelScaler
+from arenets.arekit.common.data import const
+from arenets.arekit.common.labels.scaler import BaseLabelScaler
 
 
 class BasePredictProvider(object):

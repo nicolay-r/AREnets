@@ -8,7 +8,7 @@ from tests.test_tf_ctx_feed import TestContextNetworkFeeding
 from tests.tf_networks.supported import get_supported
 from tests.labels import TestThreeLabelScaler
 
-from arekit.common.labels.scaler.base import BaseLabelScaler
+from arenets.arekit.common.labels.scaler import BaseLabelScaler
 from arenets.shapes import NetworkInputShapes
 from arenets.multi.configurations.att_self import AttSelfOverSentencesConfig
 from arenets.multi.architectures.att_self import AttSelfOverSentences
