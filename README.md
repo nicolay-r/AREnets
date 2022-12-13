@@ -85,10 +85,14 @@ pip install -r dependencies.txt
     - Single MLP
         [[code]](arenets/multi/architectures/base/base_single_mlp.py);
 
-# Test Details
+## Test Details
 
 This project has been tested under the following setup:
 * NVidia GTX-1060/1080 TI
 * Python 3.6.9
 * [Pip freeze package list](docs/pip-freeze-list.txt)
 * Cuda compilation tools, release 10.0, V10.0.130
+
+## Related Frameworks
+
+*  **OpenNRE** [[github]](https://github.com/thunlp/OpenNRE) [[paper]](https://aclanthology.org/D19-3029.pdf)
