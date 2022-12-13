@@ -1,0 +1,2 @@
+tqdm==4.41.1
+tensorflow-gpu==1.14.0

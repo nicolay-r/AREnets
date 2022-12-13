@@ -1,0 +1,3 @@
+ATTENTION_SCOPE_NAME = 'attention-model'
+ATTENTION_WEIGHTS_LOG_PARAMETER = "ATT_Weights"
+
