@@ -1,4 +1,4 @@
-from arekit.common.model.params import BaseModelParams
+from arenets.arekit.model.params import BaseModelParams
 
 
 class NeuralNetworkModelParams(BaseModelParams):

@@ -3,13 +3,12 @@ import logging
 
 from arekit.contrib.utils.data.readers.base import BaseReader
 from arekit.common.data.views.samples import LinkedSamplesStorageView
+from arekit.contrib.utils.data.storages.pandas_based import PandasBasedRowsStorage
 from arenets.arekit.common.data_type import DataType
-from arekit.common.model.labeling.stat import calculate_labels_distribution_stat
+from arenets.arekit.model.labeling.stat import calculate_labels_distribution_stat
 from arenets.core.feeding.bags.collection.base import BagsCollection
-
 from arenets.core.input.rows_parser import ParsedSampleRow
 from arenets.sample import InputSample
-from arekit.contrib.utils.data.storages.pandas_based import PandasBasedRowsStorage
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
