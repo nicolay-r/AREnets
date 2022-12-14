@@ -4,10 +4,13 @@ import os
 
 from arekit.common.data.row_ids.multiple import MultipleIDProvider
 from arekit.common.data.views.samples import LinkedSamplesStorageView
-from arekit.common.folding.base import BaseDataFolding
-from arekit.common.pipeline.context import PipelineContext
-from arekit.common.pipeline.items.base import BasePipelineItem
+from arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
+from arekit.contrib.utils.io_utils.samples import SamplesIO
 from arenets.arekit.common.data_type import DataType
+from arenets.arekit.common.folding.base import BaseDataFolding
+from arenets.arekit.common.pipeline.context import PipelineContext
+from arenets.arekit.common.pipeline.items.base import BasePipelineItem
+from arenets.arekit.contrib.utils_folding import folding_iter_states
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.core.ctx_inference import InferenceContext
 from arenets.core.feeding.bags.collection.base import BagsCollection
@@ -20,9 +23,6 @@ from arenets.core.pipeline.item_predict import EpochLabelsPredictorPipelineItem
 from arenets.core.pipeline.item_predict_labeling import EpochLabelsCollectorPipelineItem
 from arenets.shapes import NetworkInputShapes
 from arenets.utils import rm_dir_contents
-from arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
-from arekit.contrib.utils.io_utils.samples import SamplesIO
-from arekit.contrib.utils.utils_folding import folding_iter_states
 
 
 class NetworksTrainingPipelineItem(BasePipelineItem):

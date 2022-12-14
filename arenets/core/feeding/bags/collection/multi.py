@@ -1,4 +1,4 @@
-from arekit.common.data.input.sample import InputSampleBase
+from arenets.arekit.common.data.input.sample import InputSampleBase
 from arenets.core.feeding.bags.bag import Bag
 from arenets.core.feeding.bags.collection.base import BagsCollection
 from arenets.core.input.rows_parser import ParsedSampleRow

@@ -3,14 +3,14 @@ import logging
 import sys
 import unittest
 
-sys.path.append('../../../')
+sys.path.append('../')
 
+from tests.pos import PartOfSpeechTypesService
 from tests.tf_networks.utils import init_config
 from tests.tf_networks.supported import get_supported
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.multi.architectures.max_pooling import MaxPoolingOverSentences
 from arenets.multi.configurations.base import BaseMultiInstanceConfig
-from arekit.contrib.utils.processing.languages.ru.pos_service import PartOfSpeechTypesService
 
 
 class TestMultiInstanceCompile(unittest.TestCase):

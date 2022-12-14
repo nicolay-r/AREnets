@@ -1,16 +1,17 @@
 import collections
 import logging
 
-from arekit.common.model.base import BaseModel
 from arenets.arekit.common.data_type import DataType
-from arekit.common.pipeline.base import BasePipeline
-
+from arenets.arekit.common.pipeline.base import BasePipeline
 from arenets.arekit.common.utils import progress_bar_defined
+from arenets.arekit.model.base import BaseModel
+
 from arenets.core.cancellation import OperationCancellation
 from arenets.core.feeding.bags.collection.factory import create_batch_by_bags_group
 from arenets.core.model_ctx import TensorflowModelContext
 from arenets.core.params import NeuralNetworkModelParams
 from arenets.core.pipeline.item_base import EpochHandlingPipelineItem
+
 from arenets.tf_helpers.nn_states import TensorflowNetworkStatesProvider
 
 logger = logging.getLogger(__name__)

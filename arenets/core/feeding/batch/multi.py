@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from arekit.common.data.input.sample import InputSampleBase
+from arenets.arekit.common.data.input.sample import InputSampleBase
 from arenets.core.debug import DebugKeys
 from arenets.core.feeding.bags.bag import Bag
 from arenets.core.feeding.batch.base import MiniBatch

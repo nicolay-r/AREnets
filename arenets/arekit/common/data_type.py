@@ -3,7 +3,7 @@ from enum import Enum
 
 class DataType(Enum):
     """
-    Describes collection types that supportes in
+    Describes collection types that supports in
     current implementation, and provides by collections.
     """
 

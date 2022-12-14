@@ -4,14 +4,12 @@ import unittest
 import tensorflow as tf
 import logging
 
-
-sys.path.append('../../../')
+sys.path.append('../')
 
 from tests.labels import TestThreeLabelScaler
 from tests.tf_networks.supported import get_supported
+from tests.pos import PartOfSpeechTypesService
 from tests.tf_networks.utils import init_config
-
-from arekit.contrib.utils.processing.languages.ru.pos_service import PartOfSpeechTypesService
 
 from arenets.arekit.common.labels.scaler import BaseLabelScaler
 from arenets.arekit.common.data_type import DataType

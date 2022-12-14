@@ -1,4 +1,4 @@
-from arekit.common.pipeline.context import PipelineContext
+from arenets.arekit.common.pipeline.context import PipelineContext
 from arenets.core.feeding.batch.base import MiniBatch
 from arenets.core.pipeline.item_base import EpochHandlingPipelineItem
 

@@ -1,4 +1,4 @@
-from arekit.common.pipeline.context import PipelineContext
+from arenets.arekit.common.pipeline.context import PipelineContext
 from arenets.core.idhv_collection import NetworkInputDependentVariables
 from arenets.core.pipeline.item_base import EpochHandlingPipelineItem
 

@@ -1,7 +1,7 @@
 import logging
 from collections import OrderedDict
 
-from arekit.common.data.input.sample import InputSampleBase
+from arenets.arekit.common.data.input.sample import InputSampleBase
 from arenets.core.debug import DebugKeys
 
 logger = logging.getLogger(__name__)

@@ -1,4 +1,4 @@
-from arekit.common.pipeline.items.base import BasePipelineItem
+from arenets.arekit.common.pipeline.items.base import BasePipelineItem
 from arenets.core.model_ctx import TensorflowModelContext
 
 

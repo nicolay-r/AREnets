@@ -2,7 +2,7 @@ import logging
 import sys
 import unittest
 
-sys.path.append('../../../')
+sys.path.append('../')
 
 from tests.test_tf_ctx_feed import TestContextNetworkFeeding
 from tests.tf_networks.supported import get_supported

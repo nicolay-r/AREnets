@@ -3,7 +3,6 @@ import random
 import numpy as np
 
 from arekit.common.data.input.sample import InputSampleBase
-from arekit.common.news.parsed.providers.entity_service import EntityServiceProvider
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.features.pointers import PointersFeature
 from arenets.features.sample_dist import DistanceFeatures
@@ -155,6 +154,10 @@ class InputSample(InputSampleBase):
         # placeholed when the related term has not been found in vocabulary.
         return terms_vocab[term] if term in terms_vocab else cls.TERM_VALUE_MISSING
 
+    @staticmethod
+    def calc_dist_between_text_opinion_end_indices(pos1_ind, pos2_ind):
+        return abs(pos1_ind - pos2_ind)
+
     @classmethod
     def create_from_parameters(cls,
                                input_sample_id,  # row_id
@@ -208,9 +211,7 @@ class InputSample(InputSampleBase):
 
         # Check an ability to create sample by analyzing required window size.
         window_size = terms_per_context
-        dist_between_entities = EntityServiceProvider.calc_dist_between_text_opinion_end_indices(
-            pos1_ind=subj_ind,
-            pos2_ind=obj_ind)
+        dist_between_entities = cls.calc_dist_between_text_opinion_end_indices(pos1_ind=subj_ind, pos2_ind=obj_ind)
 
         if not cls._check_ends_could_be_fitted_in_window(dist_between_entities, window_size):
             # In some cases we may encounter with mismatched of tpc (terms per context parameter)
