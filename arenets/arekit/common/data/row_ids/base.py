@@ -41,11 +41,6 @@ class BaseIDProvider(object):
         return int(row_id[_from:_to])
 
     @staticmethod
-    def parse_opinion_in_opinion_id(opinion_id):
-        assert(isinstance(opinion_id, str))
-        return BaseIDProvider._parse(opinion_id, BaseIDProvider.OPINION)
-
-    @staticmethod
     def parse_opinion_in_sample_id(sample_id):
         assert(isinstance(sample_id, str))
         return BaseIDProvider._parse(sample_id, BaseIDProvider.OPINION)
