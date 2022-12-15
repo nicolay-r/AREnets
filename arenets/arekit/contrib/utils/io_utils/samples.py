@@ -9,7 +9,7 @@ from arenets.arekit.contrib.utils.io_utils.utils import check_targets_existence,
 class SamplesIO(BaseSamplesIO):
     """ Samples default IO utils for samples.
             Sample is a text part which include pair of attitude participants.
-            This class allows to provide saver and loader for such entries, bubbed as samples.
+            This class allows to provide saver and loader for such entries, dubbed as samples.
             Samples required for machine learning training/inferring.
     """
 
@@ -33,14 +33,14 @@ class SamplesIO(BaseSamplesIO):
     def Reader(self):
         return self.__reader
 
-    def create_target(self, data_type, data_folding):
-        return self.__get_input_sample_target(data_type, data_folding=data_folding)
+    def create_target(self, data_type):
+        return self.__get_input_sample_target(data_type)
 
-    def check_targets_existed(self, data_types_iter, data_folding):
+    def check_targets_existed(self, data_types_iter):
         for data_type in data_types_iter:
 
             targets = [
-                self.__get_input_sample_target(data_type=data_type, data_folding=data_folding),
+                self.__get_input_sample_target(data_type=data_type),
             ]
 
             if not check_targets_existence(targets=targets):
@@ -49,8 +49,8 @@ class SamplesIO(BaseSamplesIO):
 
     # endregion
 
-    def __get_input_sample_target(self, data_type, data_folding):
-        template = filename_template(data_type=data_type, data_folding=data_folding)
+    def __get_input_sample_target(self, data_type):
+        template = filename_template(data_type=data_type)
         return self.__get_filepath(out_dir=self.__target_dir,
                                    template=template,
                                    prefix=self.__prefix,

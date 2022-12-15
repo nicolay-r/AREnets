@@ -44,15 +44,6 @@ class PartOfSpeechTypesService(object):
         "EMPTY": PartOfSpeechType.Empty}
 
     @staticmethod
-    def iter_mystem_tags():
-        for key, value in PartOfSpeechTypesService.__pos_names.items():
-            yield key, value
-
-    @staticmethod
-    def get_mystem_from_string(value):
-        return PartOfSpeechTypesService.__pos_names[value]
-
-    @staticmethod
     def get_mystem_pos_count():
         return len(PartOfSpeechTypesService.__pos_names)
 

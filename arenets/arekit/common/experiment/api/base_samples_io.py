@@ -8,13 +8,7 @@ class BaseSamplesIO(object):
     def Reader(self):
         raise NotImplementedError()
 
-    @property
-    def Writer(self):
-        """ For serialization
-        """
-        raise NotImplementedError()
-
-    def create_target(self, data_type, data_folding):
-        """ Path for reaiding/viewing
+    def create_target(self, data_type):
+        """ Path for reading/viewing
         """
         raise NotImplementedError()

@@ -10,7 +10,6 @@ from arenets.arekit.common.pipeline.context import PipelineContext
 from arenets.arekit.common.pipeline.items.base import BasePipelineItem
 from arenets.arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
 from arenets.arekit.contrib.utils.io_utils.samples import SamplesIO
-from arenets.arekit.contrib.utils_folding import folding_iter_states
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.core.ctx_inference import InferenceContext
 from arenets.core.feeding.bags.collection.base import BagsCollection
@@ -79,14 +78,14 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
         # Notify other subscribers that initialization process has been completed.
         self.__config.init_initializers()
 
-    def __check_targets_existed(self, data_types_iter, data_folding):
+    def __check_targets_existed(self, data_types_iter):
         """ Check that all the required resources existed.
         """
 
-        if not self.__samples_io.check_targets_existed(data_types_iter=data_types_iter, data_folding=data_folding):
+        if not self.__samples_io.check_targets_existed(data_types_iter=data_types_iter):
             return False
 
-        if not self.__emb_io.check_targets_existed(data_folding=data_folding):
+        if not self.__emb_io.check_targets_existed():
             return False
 
         return True
@@ -95,27 +94,26 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
         assert(isinstance(data_folding, BaseDataFolding))
         assert(isinstance(data_type, DataType))
 
-        targets_existed = self.__check_targets_existed(data_types_iter=data_folding.iter_supported_data_types(),
-                                                       data_folding=data_folding)
+        targets_existed = self.__check_targets_existed(data_types_iter=data_folding.iter_supported_data_types())
 
         if not targets_existed:
             raise Exception("Data has not been initialized/serialized!")
 
         # Reading embedding.
-        embedding_data = self.__emb_io.load_embedding(data_folding)
+        embedding_data = self.__emb_io.load_embedding()
         self.__config.set_term_embedding(embedding_data)
-        self.__samples_io.create_target(data_type=data_type, data_folding=data_folding)
+        self.__samples_io.create_target(data_type=data_type)
 
         # Performing samples reading process.
         inference_ctx = InferenceContext.create_empty()
         inference_ctx.initialize(
             dtypes=data_folding.iter_supported_data_types(),
-            load_target_func=lambda dtype: self.__samples_io.create_target(data_type=dtype, data_folding=data_folding),
+            load_target_func=lambda dtype: self.__samples_io.create_target(data_type=dtype),
             samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
             samples_reader=self.__samples_io.Reader,
             has_model_predefined_state=self.__model_io.IsPretrainedStateProvided,
             labels_count=self.__labels_count,
-            terms_vocab=self.__emb_io.load_vocab(data_folding),
+            terms_vocab=self.__emb_io.load_vocab(),
             bags_collection_type=self.__bags_collection_type,
             input_shapes=NetworkInputShapes(iter_pairs=[
                 (NetworkInputShapes.FRAMES_PER_CONTEXT, self.__config.FramesPerContext),
@@ -169,6 +167,6 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
         self.__prepare_model()
         data_folding = pipeline_ctx.provide("data_folding")
         data_type = pipeline_ctx.provide_or_none("data_type")
-        for _ in folding_iter_states(data_folding):
-            self.__handle_iteration(data_folding=data_folding,
-                                    data_type=data_type if data_type is not None else DataType.Train)
+
+        self.__handle_iteration(data_folding=data_folding,
+                                data_type=data_type if data_type is not None else DataType.Train)
