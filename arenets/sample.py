@@ -2,7 +2,7 @@ import random
 
 import numpy as np
 
-from arekit.common.data.input.sample import InputSampleBase
+from arenets.arekit.common.data.input.sample import InputSampleBase
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.features.pointers import PointersFeature
 from arenets.features.sample_dist import DistanceFeatures
