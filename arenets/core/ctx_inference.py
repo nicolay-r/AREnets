@@ -1,9 +1,9 @@
 import collections
 import logging
 
-from arekit.contrib.utils.data.readers.base import BaseReader
-from arekit.common.data.views.samples import LinkedSamplesStorageView
-from arekit.contrib.utils.data.storages.pandas_based import PandasBasedRowsStorage
+from arenets.arekit.common.data.input.reader import BaseReader
+from arenets.arekit.common.data.storages.base import BaseRowsStorage
+from arenets.arekit.common.data.views.samples import LinkedSamplesStorageView
 from arenets.arekit.common.data_type import DataType
 from arenets.arekit.model.labeling.stat import calculate_labels_distribution_stat
 from arenets.core.feeding.bags.collection.base import BagsCollection
@@ -124,7 +124,7 @@ class InferenceContext(object):
 
     @staticmethod
     def __get_labeled_sample_row_ids(storage):
-        assert(isinstance(storage, PandasBasedRowsStorage))
+        assert(isinstance(storage, BaseRowsStorage))
         rows_list = []
         for _, row in storage:
             labeled_row = InferenceContext.__extract_labeled_rows(row)

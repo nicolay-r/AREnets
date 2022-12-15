@@ -15,6 +15,8 @@ Input embedding enlarged with the task specific features.
 pip install -r dependencies.txt
 ```
 
+`pandas` is required only for `csv` reading. It might be changed with different implementation (issue #8)
+
 ## Contents
 * [List of features](#list-of-features)
 * [Models List](#models-list)
