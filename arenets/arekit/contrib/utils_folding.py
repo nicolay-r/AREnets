@@ -1,3 +1,4 @@
+from arenets.arekit.common.folding.base import BaseDataFolding
 from arenets.arekit.contrib.two_class import TwoClassCVFolding
 
 
@@ -6,3 +7,13 @@ def folding_iter_states(folding):
         for state in folding.iter_states():
             yield state
     yield 0
+
+
+def experiment_iter_index(folding):
+    assert(isinstance(folding, BaseDataFolding))
+
+    if isinstance(folding, TwoClassCVFolding):
+        return folding.StateIndex
+
+    # In other cases we consider that there is only a single state.
+    return 0

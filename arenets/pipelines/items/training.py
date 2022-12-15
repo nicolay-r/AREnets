@@ -2,14 +2,14 @@ import gc
 import logging
 import os
 
-from arekit.common.data.row_ids.multiple import MultipleIDProvider
-from arekit.common.data.views.samples import LinkedSamplesStorageView
-from arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
-from arekit.contrib.utils.io_utils.samples import SamplesIO
+from arenets.arekit.common.data.row_ids.base import BaseIDProvider
+from arenets.arekit.common.data.views.samples import LinkedSamplesStorageView
 from arenets.arekit.common.data_type import DataType
 from arenets.arekit.common.folding.base import BaseDataFolding
 from arenets.arekit.common.pipeline.context import PipelineContext
 from arenets.arekit.common.pipeline.items.base import BasePipelineItem
+from arenets.arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
+from arenets.arekit.contrib.utils.io_utils.samples import SamplesIO
 from arenets.arekit.contrib.utils_folding import folding_iter_states
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.core.ctx_inference import InferenceContext
@@ -111,7 +111,7 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
         inference_ctx.initialize(
             dtypes=data_folding.iter_supported_data_types(),
             load_target_func=lambda dtype: self.__samples_io.create_target(data_type=dtype, data_folding=data_folding),
-            samples_view=LinkedSamplesStorageView(row_ids_provider=MultipleIDProvider()),
+            samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
             samples_reader=self.__samples_io.Reader,
             has_model_predefined_state=self.__model_io.IsPretrainedStateProvided,
             labels_count=self.__labels_count,
