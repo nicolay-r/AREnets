@@ -1,13 +1,18 @@
 # AREnets
 
-![](https://img.shields.io/badge/Python-3.6-brightgreen.svg)
+![](https://img.shields.io/badge/Python-3.6.9-brightgreen.svg)
 ![](https://img.shields.io/badge/Tensorflow-1.14-orange.svg)
 
-This contributional part provides a 
-[Tensorflow-based](https://www.tensorflow.org/)
-Neural Networks implementation
-for (sentiment) relation extraction task.
-Input embedding enlarged with the task specific features.
+AREnets -- is an [OpenNRE](https://github.com/thunlp/OpenNRE) like project, but the kernel based on [tensorflow](https://www.tensorflow.org/)
+library, with implementation of neural networks on top of it, designed for **A**ttitude and **R**elation **E**xtraction tasks.
+
+## Contents
+* [Installation](#installation)
+* [Quick Start](#quick-start)
+* [Input Features](#list-of-features)
+* [Models List](#models-list)
+* [Test Details](#test-details)
+* [Related Frameworks](#related-frameworks)
 
 ## Installation
 
@@ -15,14 +20,13 @@ Input embedding enlarged with the task specific features.
 pip install -r dependencies.txt
 ```
 
-`pandas` is required only for `csv` reading. It might be changed with different implementation (issue #8)
+> NOTE: `pandas` is required only for `csv` reading. It might be changed with different implementation (issue #8)
 
-## Contents
-* [List of features](#list-of-features)
-* [Models List](#models-list)
-* [Test details](#test-details)
+## Quick Start
 
-## List of features
+## Input features
+
+Input embedding enlarged with the task specific features.
 
 * Frame-Roles [[code]](arenets/features/term_frame_roles.py) -- frame variant sentiment label, for frames presented in context.
 * Distance-Feature [[code]](arenets/features/sample_dist.py):
