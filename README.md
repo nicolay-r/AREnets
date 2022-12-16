@@ -5,11 +5,15 @@
 
 AREnets -- is an [OpenNRE](https://github.com/thunlp/OpenNRE) like project, but the kernel based on [tensorflow](https://www.tensorflow.org/)
 library, with implementation of neural networks on top of it, designed for **A**ttitude and **R**elation **E**xtraction tasks.
+This project is powered by 
+[AREkit](https://github.com/nicolay-r/AREkit) 
+API, which was squeezed into a tiny 
+[kernel](https://github.com/nicolay-r/AREnets/tree/dev/arenets/arekit).
 
 ## Contents
 * [Installation](#installation)
 * [Quick Start](#quick-start)
-* [Input Features](#list-of-features)
+* [Input Features](#input-features)
 * [Models List](#models-list)
 * [Test Details](#test-details)
 * [Related Frameworks](#related-frameworks)
@@ -27,6 +31,8 @@ pip install -r dependencies.txt
 ## Input features
 
 Input embedding enlarged with the task specific features.
+[[code]](https://github.com/nicolay-r/AREnets/blob/05e53b7637f57a1ce534519f2440d6553150a686/arenets/sample.py#L16)
+[[list-of-files]](https://github.com/nicolay-r/AREnets/tree/dev/arenets/features)
 
 * Frame-Roles [[code]](arenets/features/term_frame_roles.py) -- frame variant sentiment label, for frames presented in context.
 * Distance-Feature [[code]](arenets/features/sample_dist.py):
