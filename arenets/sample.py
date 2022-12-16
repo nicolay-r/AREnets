@@ -324,13 +324,3 @@ class InputSample(InputSampleBase):
             if not var_name.startswith('I_'):
                 continue
             yield getattr(InputSample, var_name)
-
-    # region public methods
-
-    def save(self, filepath):
-        raise NotImplementedError()
-
-    def load(self, filepath):
-        raise NotImplementedError()
-
-    # endregion

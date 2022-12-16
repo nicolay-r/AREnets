@@ -19,9 +19,6 @@ class BaseRowsStorage(object):
     def get_row(self, row_index):
         raise NotImplemented()
 
-    def get_cell(self, row_index, column_name):
-        raise NotImplemented()
-
     # endregion
 
     # endregion

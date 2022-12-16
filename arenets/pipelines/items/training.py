@@ -123,7 +123,7 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
             bag_size=self.__config.BagSize)
 
         if inference_ctx.HasNormalizedWeights:
-            weights = inference_ctx.calc_normalized_weigts(labels_count=self.__labels_count)
+            weights = inference_ctx.calc_normalized_weights(labels_count=self.__labels_count)
             self.__config.set_class_weights(weights)
 
         # Update parameters after iteration preparation has been completed.

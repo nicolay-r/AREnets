@@ -51,9 +51,6 @@ class PandasBasedRowsStorage(BaseRowsStorage):
     def get_row(self, row_index):
         return self._df.iloc[row_index]
 
-    def get_cell(self, row_index, column_name):
-        return self._df.iloc[row_index][column_name]
-
     def iter_column_values(self, column_name, dtype=None):
         values = self._df[column_name]
         if dtype is None:

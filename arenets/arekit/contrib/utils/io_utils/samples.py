@@ -8,9 +8,9 @@ from arenets.arekit.contrib.utils.io_utils.utils import check_targets_existence,
 
 class SamplesIO(BaseSamplesIO):
     """ Samples default IO utils for samples.
-            Sample is a text part which include pair of attitude participants.
-            This class allows to provide saver and loader for such entries, dubbed as samples.
-            Samples required for machine learning training/inferring.
+        Sample is a text part which include pair of attitude participants.
+        This class allows to provide saver and loader for such entries, dubbed as samples.
+        Samples required for machine learning training/inferring.
     """
 
     def __init__(self, target_dir, reader=None, prefix="sample", target_extension=None):

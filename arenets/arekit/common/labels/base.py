@@ -14,5 +14,6 @@ class Label(object):
     def to_class_str(self):
         return self.__class__.__name__
 
+
 class NoLabel(Label):
     pass

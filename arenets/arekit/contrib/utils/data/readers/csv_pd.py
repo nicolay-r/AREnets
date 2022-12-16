@@ -5,7 +5,7 @@ from arenets.arekit.contrib.utils.data.storages.pandas_based import PandasBasedR
 
 
 class PandasCsvReader(BaseReader):
-    """ Represents a CSV-based reader, implmented via pandas API.
+    """ Represents a CSV-based reader, implemented via pandas API.
     """
 
     def __init__(self, sep='\t', header='infer', compression='gzip', encoding='utf-8', col_types=None):

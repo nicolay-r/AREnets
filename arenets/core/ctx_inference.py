@@ -81,7 +81,7 @@ class InferenceContext(object):
             if data_type == DataType.Train:
                 self.__train_stat_uint_labeled_sample_row_ids = uint_labeled_sample_row_ids
 
-    def calc_normalized_weigts(self, labels_count):
+    def calc_normalized_weights(self, labels_count):
         assert(isinstance(labels_count, int) and labels_count > 0)
 
         if self.__train_stat_uint_labeled_sample_row_ids is None:
