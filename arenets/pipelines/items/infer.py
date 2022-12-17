@@ -97,7 +97,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
             load_target_func=lambda data_type: samples_io.create_target(data_type=data_type),
             samples_reader=PandasCsvReader(),
             samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
-            has_model_predefined_state=True,
+            is_external_vocab=True,
             terms_vocab=terms_vocab,
             labels_count=self.__config.ClassesCount,
             input_shapes=NetworkInputShapes(iter_pairs=[

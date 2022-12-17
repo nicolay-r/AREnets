@@ -43,14 +43,14 @@ class InferenceContext(object):
     def create_empty(cls):
         return cls(sample_label_pairs_dict={}, bags_collections_dict={})
 
-    def initialize(self, dtypes, load_target_func, samples_view, samples_reader, has_model_predefined_state,
+    def initialize(self, dtypes, load_target_func, samples_view, samples_reader, is_external_vocab,
                    terms_vocab, labels_count, bags_collection_type, bag_size, input_shapes):
         """
         Perform reading information from the serialized experiment inputs.
         Initializing core configuration.
         """
         assert(isinstance(dtypes, collections.Iterable))
-        assert(isinstance(has_model_predefined_state, bool))
+        assert(isinstance(is_external_vocab, bool))
         assert(isinstance(labels_count, int) and labels_count > 0)
         assert(isinstance(samples_view, LinkedSamplesStorageView))
         assert(isinstance(samples_reader, BaseReader))
@@ -65,7 +65,7 @@ class InferenceContext(object):
             # Extracting such information from serialized files.
             bags_collection = self.__read_for_data_type(
                 linked_samples_iter=samples_view.iter_from_storage(storage),
-                is_external_vocab=has_model_predefined_state,
+                is_external_vocab=is_external_vocab,
                 bags_collection_type=bags_collection_type,
                 terms_vocab=terms_vocab,
                 bag_size=bag_size,
