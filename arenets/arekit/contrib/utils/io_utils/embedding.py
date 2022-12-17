@@ -15,12 +15,13 @@ class NpEmbeddingIO(BaseEmbeddingIO):
             - embedding vocabulary.
     """
 
-    TERM_EMBEDDING_FILENAME_TEMPLATE = 'term_embedding-{cv_index}'
-    VOCABULARY_FILENAME_TEMPLATE = "vocab-{cv_index}.txt"
-
-    def __init__(self, target_dir):
+    def __init__(self, target_dir, vocab_filename="vocab.txt", embedding_npz_filename="term_embedding.npz"):
         assert(isinstance(target_dir, str))
+        assert(isinstance(vocab_filename, str))
+        assert(isinstance(embedding_npz_filename, str))
         self.__target_dir = target_dir
+        self.__vocab_filename = vocab_filename
+        self.__embedding_npz_filename = embedding_npz_filename
 
     # region Embedding-related data
 
@@ -56,11 +57,9 @@ class NpEmbeddingIO(BaseEmbeddingIO):
         return self.__get_default_embedding_filepath()
 
     def __get_default_vocab_filepath(self):
-        return join(self.__target_dir,
-                    self.VOCABULARY_FILENAME_TEMPLATE.format(cv_index=0))
+        return join(self.__target_dir, self.__vocab_filename)
 
     def __get_default_embedding_filepath(self):
-        return join(self.__target_dir,
-                    self.TERM_EMBEDDING_FILENAME_TEMPLATE.format(cv_index=0) + '.npz')
+        return join(self.__target_dir, self.__embedding_npz_filename)
 
     # endregion

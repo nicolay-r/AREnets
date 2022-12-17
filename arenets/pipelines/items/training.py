@@ -5,7 +5,6 @@ import os
 from arenets.arekit.common.data.row_ids.base import BaseIDProvider
 from arenets.arekit.common.data.views.samples import LinkedSamplesStorageView
 from arenets.arekit.common.data_type import DataType
-from arenets.arekit.common.folding.base import BaseDataFolding
 from arenets.arekit.common.pipeline.context import PipelineContext
 from arenets.arekit.common.pipeline.items.base import BasePipelineItem
 from arenets.arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
@@ -90,11 +89,11 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
 
         return True
 
-    def __handle_iteration(self, data_folding, data_type):
-        assert(isinstance(data_folding, BaseDataFolding))
+    def __handle_iteration(self, supported_data_types, data_type):
+        assert(isinstance(supported_data_types, list))
         assert(isinstance(data_type, DataType))
 
-        targets_existed = self.__check_targets_existed(data_types_iter=data_folding.iter_supported_data_types())
+        targets_existed = self.__check_targets_existed(data_types_iter=iter(supported_data_types))
 
         if not targets_existed:
             raise Exception("Data has not been initialized/serialized!")
@@ -107,7 +106,7 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
         # Performing samples reading process.
         inference_ctx = InferenceContext.create_empty()
         inference_ctx.initialize(
-            dtypes=data_folding.iter_supported_data_types(),
+            dtypes=iter(supported_data_types),
             load_target_func=lambda dtype: self.__samples_io.create_target(data_type=dtype),
             samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
             samples_reader=self.__samples_io.Reader,
@@ -161,12 +160,12 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
 
     def apply_core(self, input_data, pipeline_ctx):
         assert(isinstance(pipeline_ctx, PipelineContext))
-        assert("data_folding" in pipeline_ctx)
+        assert("supported_data_types" in pipeline_ctx)
 
         # Prepare all the required data.
         self.__prepare_model()
-        data_folding = pipeline_ctx.provide("data_folding")
+        supported_data_types = pipeline_ctx.provide("supported_data_types")
         data_type = pipeline_ctx.provide_or_none("data_type")
 
-        self.__handle_iteration(data_folding=data_folding,
+        self.__handle_iteration(supported_data_types=supported_data_types,
                                 data_type=data_type if data_type is not None else DataType.Train)

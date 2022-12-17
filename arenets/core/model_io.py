@@ -54,7 +54,7 @@ class TensorflowNeuralNetworkModelIO(object):
         return join(self.__target_dir, self.__model_name)
 
     def get_model_source_path_tf_prefix(self):
-        """ Path, utiliized for the fine-tunning, i.e. original model state. (Loading)
+        """ Path, utilized for the fine-tunning, i.e. original model state. (Loading)
         """
         return self.__get_original_state_model_dir()
 
