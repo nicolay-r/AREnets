@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
+from arenets.arekit.common.labels.base import Label
 from arenets.arekit.common.labels.scaler import BaseLabelScaler
-from tests.labels import Label
 
 
 class NoLabel(Label):
