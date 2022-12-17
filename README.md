@@ -28,6 +28,34 @@ pip install -r dependencies.txt
 
 ## Quick Start
 
+The complete examples are in [tutorials](tutorials) folder.
+
+### Train
+1. Prepare data at `_data`
+2. Run training:
+```python
+from arenets.quickstart.train import train
+from arenets.enum_name_types import ModelNames
+
+train(input_data_dir="_data", model_name=ModelNames.CNN, epochs_count=10, train_acc_limit=0.9)
+```
+Means run  `cnn` model with `10` epochs and stop training once `acc` reached:
+
+### Infer
+1. Use data at `_data`
+2. Prepare label converter (API to be a bit simplified)
+3. Run inference:
+```python
+from arenets.quickstart.predict import predict
+from arenets.arekit.common.data_type import DataType
+from arenets.enum_name_types import ModelNames
+from tutorials.labels import PosNegNeuRelationsLabelScaler
+
+predict(input_data_dir="_data", output_dir="_out", labels_scaler=PosNegNeuRelationsLabelScaler(),
+        model_name=ModelNames.CNN, data_type=DataType.Test)
+```
+Means save results to `_out` folder for a model `cnn` located at `_data` by default.
+
 ## Input features
 
 Input embedding enlarged with the task specific features.
