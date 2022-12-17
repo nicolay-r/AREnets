@@ -18,7 +18,8 @@ from arenets.np_utils.writer import NpzDataWriter
 from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 
 
-def train(input_data_dir, model_save_dir=None, model_log_dir=None, model_name_suffix="model",
+def train(input_data_dir, model_save_dir=None, model_log_dir=None,
+          modify_config_func=None, model_name_suffix="model",
           vocab_filename="vocab.txt", embedding_npz_filename="term_embedding.npz",
           epochs_count=100, labels_count=3, model_name=ModelNames.CNN,
           bags_per_minibatch=32, bag_size=1, terms_per_context=50,
@@ -26,11 +27,14 @@ def train(input_data_dir, model_save_dir=None, model_log_dir=None, model_name_su
           dropout_keep_prob=0.9, train_acc_limit=0.99,
           part_of_speech_types_count=100):
     """
+        modify_config_func: func of None
+            allows to declare and provide your function which modifies the contents of the config.
         model_save_dir: str
             Where to keep the Tensorflow-based serialized model state.
         model_log_dir: str
             Where to keep logging details during the model process training.
     """
+    assert(callable(modify_config_func) or modify_config_func is None)
     assert(isinstance(input_data_dir, str))
     assert(isinstance(model_save_dir, str) or model_save_dir is None)
     assert(isinstance(model_log_dir, str) or model_log_dir is None)
@@ -67,6 +71,10 @@ def train(input_data_dir, model_save_dir=None, model_log_dir=None, model_name_su
     config.modify_terms_per_context(terms_per_context)
     config.modify_use_entity_types_in_embedding(False)
     config.set_pos_count(part_of_speech_types_count)
+
+    # Custom configuration modification function.
+    if modify_config_func is not None:
+        modify_config_func(config)
 
     pipeline_item = NetworksTrainingPipelineItem(
         load_model=True,

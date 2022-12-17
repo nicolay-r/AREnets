@@ -25,11 +25,12 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
 
     def __init__(self, model_name, bags_collection_type, model_input_type, predict_writer,
                  data_type, bag_size, bags_per_minibatch, nn_io, labels_scaler, callbacks,
-                 part_of_speech_types_count=100):
+                 modify_config_func=None, part_of_speech_types_count=100):
         assert(isinstance(callbacks, list))
         assert(isinstance(bag_size, int))
         assert(isinstance(predict_writer, BasePredictWriter))
         assert(isinstance(data_type, DataType))
+        assert(callable(modify_config_func) or modify_config_func is None)
 
         # Create network an configuration.
         network_func, config_func = create_network_and_network_config_funcs(
@@ -44,6 +45,10 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
         self.__config.set_class_weights([1] * labels_scaler.LabelsCount)
         self.__config.set_pos_count(part_of_speech_types_count)
         self.__config.reinit_config_dependent_parameters()
+
+        # Custom configuration modification function.
+        if modify_config_func is not None:
+            modify_config_func(self.__config)
 
         # intialize model context.
         self.__create_model_ctx = lambda inference_ctx: TensorflowModelContext(
