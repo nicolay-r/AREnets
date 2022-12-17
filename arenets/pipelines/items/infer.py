@@ -41,7 +41,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
         self.__config.modify_classes_count(labels_scaler.LabelsCount)
         self.__config.modify_bag_size(bag_size)
         self.__config.modify_bags_per_minibatch(bags_per_minibatch)
-        self.__config.set_class_weights([1, 1, 1])
+        self.__config.set_class_weights([1] * labels_scaler.LabelsCount)
         self.__config.set_pos_count(part_of_speech_types_count)
         self.__config.reinit_config_dependent_parameters()
 
