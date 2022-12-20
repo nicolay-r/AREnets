@@ -2,7 +2,8 @@
 
 ![](https://img.shields.io/badge/Python-3.6.9-brightgreen.svg)
 ![](https://img.shields.io/badge/Tensorflow-1.14-orange.svg)
-![https://colab.research.google.com/drive/1vHviXuaX3GYZP6PEdP8siEH3LLlXBQY5?usp=sharing](https://colab.research.google.com/assets/colab-badge.svg)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1vHviXuaX3GYZP6PEdP8siEH3LLlXBQY5?usp=sharing)
+
 
 **AREnets** -- is an [OpenNRE](https://github.com/thunlp/OpenNRE) like project, but the kernel based on [tensorflow](https://www.tensorflow.org/)
 library, with implementation of neural networks on top of it, designed for **A**ttitude and **R**elation **E**xtraction tasks.
@@ -28,8 +29,7 @@ pip install -r dependencies.txt
 > NOTE: `pandas` is required only for `csv` reading. It might be changed with different implementation (issue #8)
 
 ## Quick Start
-![https://colab.research.google.com/drive/1vHviXuaX3GYZP6PEdP8siEH3LLlXBQY5?usp=sharing](https://colab.research.google.com/assets/colab-badge.svg)
-
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1vHviXuaX3GYZP6PEdP8siEH3LLlXBQY5?usp=sharing)
 
 The complete examples are in [tutorials](tutorials) folder.
 
