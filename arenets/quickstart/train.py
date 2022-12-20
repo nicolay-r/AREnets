@@ -18,10 +18,10 @@ from arenets.np_utils.writer import NpzDataWriter
 from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 
 
-def train(input_data_dir, model_save_dir=None, model_log_dir=None,
+def train(input_data_dir, labels_count, model_save_dir=None, model_log_dir=None,
           modify_config_func=None, model_name_suffix="model",
           vocab_filename="vocab.txt", embedding_npz_filename="term_embedding.npz",
-          epochs_count=100, labels_count=3, model_name=ModelNames.CNN,
+          epochs_count=100, model_name=ModelNames.CNN,
           bags_per_minibatch=32, bag_size=1, terms_per_context=50,
           learning_rate=0.01, embedding_dropout_keep_prob=1.0,
           dropout_keep_prob=0.9, train_acc_limit=0.99,

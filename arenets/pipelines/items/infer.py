@@ -24,7 +24,7 @@ from arenets.shapes import NetworkInputShapes
 class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
 
     def __init__(self, model_name, bags_collection_type, model_input_type, predict_writer,
-                 data_type, bag_size, bags_per_minibatch, nn_io, labels_scaler, callbacks,
+                 data_type, bag_size, bags_per_minibatch, nn_io, labels_count, callbacks,
                  modify_config_func=None, part_of_speech_types_count=100):
         assert(isinstance(callbacks, list))
         assert(isinstance(bag_size, int))
@@ -39,10 +39,10 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
         # setup network and config parameters.
         self.__network = network_func()
         self.__config = config_func()
-        self.__config.modify_classes_count(labels_scaler.LabelsCount)
+        self.__config.modify_classes_count(labels_count)
         self.__config.modify_bag_size(bag_size)
         self.__config.modify_bags_per_minibatch(bags_per_minibatch)
-        self.__config.set_class_weights([1] * labels_scaler.LabelsCount)
+        self.__config.set_class_weights([1] * labels_count)
         self.__config.set_pos_count(part_of_speech_types_count)
         self.__config.reinit_config_dependent_parameters()
 
@@ -59,7 +59,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
             bags_collection_type=bags_collection_type)
 
         self.__callbacks = callbacks + [
-            PredictResultWriterCallback(labels_scaler=labels_scaler, writer=predict_writer)
+            PredictResultWriterCallback(labels_count=labels_count, writer=predict_writer)
         ]
 
         self.__writer = predict_writer

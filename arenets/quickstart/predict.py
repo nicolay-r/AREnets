@@ -11,7 +11,7 @@ from arenets.enum_name_types import ModelNames
 from arenets.pipelines.items.infer import TensorflowNetworkInferencePipelineItem
 
 
-def predict(input_data_dir, output_dir, labels_scaler,
+def predict(input_data_dir, output_dir, labels_count,
             modify_config_func=None,
             model_name_suffix="model",
             bag_size=1,
@@ -46,7 +46,7 @@ def predict(input_data_dir, output_dir, labels_scaler,
             predict_writer=TsvPredictWriter(),
             callbacks=[],
             modify_config_func=modify_config_func,
-            labels_scaler=labels_scaler,
+            labels_count=labels_count,
             nn_io=model_io)
     ])
 

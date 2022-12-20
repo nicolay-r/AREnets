@@ -3,11 +3,11 @@
 ![](https://img.shields.io/badge/Python-3.6.9-brightgreen.svg)
 ![](https://img.shields.io/badge/Tensorflow-1.14-orange.svg)
 
-AREnets -- is an [OpenNRE](https://github.com/thunlp/OpenNRE) like project, but the kernel based on [tensorflow](https://www.tensorflow.org/)
+**AREnets** -- is an [OpenNRE](https://github.com/thunlp/OpenNRE) like project, but the kernel based on [tensorflow](https://www.tensorflow.org/)
 library, with implementation of neural networks on top of it, designed for **A**ttitude and **R**elation **E**xtraction tasks.
 This project is powered by 
 [AREkit](https://github.com/nicolay-r/AREkit) 
-API, which was squeezed into a tiny 
+core API, squeezed into a tiny 
 [kernel](https://github.com/nicolay-r/AREnets/tree/dev/arenets/arekit).
 
 ## Contents
@@ -37,9 +37,11 @@ The complete examples are in [tutorials](tutorials) folder.
 from arenets.quickstart.train import train
 from arenets.enum_name_types import ModelNames
 
-train(input_data_dir="_data", model_name=ModelNames.CNN, epochs_count=10, train_acc_limit=0.9)
+train(input_data_dir="_data", labels_count=3, model_name=ModelNames.CNN, epochs_count=10, train_acc_limit=0.9)
 ```
-Means run  `cnn` model with `10` epochs and stop training once `acc` reached:
+Means run `cnn` model with `10` epochs and stop training for `3` class classification problem,
+up to moment once `train_acc_limit` won't be reached; 
+all the model-related details will be stored at `_data` model by default.
 
 ### Infer
 1. Use data at `_data`
@@ -49,10 +51,8 @@ Means run  `cnn` model with `10` epochs and stop training once `acc` reached:
 from arenets.quickstart.predict import predict
 from arenets.arekit.common.data_type import DataType
 from arenets.enum_name_types import ModelNames
-from tutorials.labels import PosNegNeuRelationsLabelScaler
 
-predict(input_data_dir="_data", output_dir="_out", labels_scaler=PosNegNeuRelationsLabelScaler(),
-        model_name=ModelNames.CNN, data_type=DataType.Test)
+predict(input_data_dir="_data", output_dir="_out", labels_count=3, model_name=ModelNames.CNN, data_type=DataType.Test)
 ```
 Means save results to `_out` folder for a model `cnn` located at `_data` by default.
 
