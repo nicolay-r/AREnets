@@ -18,7 +18,7 @@ from arenets.np_utils.writer import NpzDataWriter
 from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 
 
-def train(input_data_dir, labels_count, model_save_dir=None, model_log_dir=None,
+def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
           modify_config_func=None, model_name_suffix="model",
           vocab_filename="vocab.txt", embedding_npz_filename="term_embedding.npz",
           epochs_count=100, model_name=ModelNames.CNN,
@@ -31,21 +31,22 @@ def train(input_data_dir, labels_count, model_save_dir=None, model_log_dir=None,
             allows to declare and provide your function which modifies the contents of the config.
         model_save_dir: str
             Where to keep the Tensorflow-based serialized model state.
-        model_log_dir: str
-            Where to keep logging details during the model process training.
+        model_hstates_dir: str
+            Where to keep hidden states during the model process training.
     """
     assert(callable(modify_config_func) or modify_config_func is None)
     assert(isinstance(input_data_dir, str))
-    assert(isinstance(model_save_dir, str) or model_save_dir is None)
-    assert(isinstance(model_log_dir, str) or model_log_dir is None)
+    assert(isinstance(model_dir, str) or model_dir is None)
+    assert(isinstance(model_hstates_dir, str) or model_hstates_dir is None)
 
-    model_save_dir = input_data_dir if model_save_dir is None else model_save_dir
-    model_log_dir = input_data_dir if model_log_dir is None else model_log_dir
+    model_dir = input_data_dir if model_dir is None else model_dir
+    model_hstates_dir = input_data_dir if model_hstates_dir is None else model_hstates_dir
 
     full_model_name = "-".join([model_name.value, model_name_suffix])
-    model_target_dir = join(model_log_dir, full_model_name)
+    hstates_target_dir = join(model_hstates_dir, full_model_name, "hidden")
+
     model_io = TensorflowNeuralNetworkModelIO(model_name=full_model_name,
-                                              target_dir=model_save_dir)
+                                              target_dir=model_dir)
     data_writer = NpzDataWriter()
 
     network_func, network_config_func = create_network_and_network_config_funcs(
@@ -55,8 +56,8 @@ def train(input_data_dir, labels_count, model_save_dir=None, model_log_dir=None,
     network_callbacks = [
         TrainingLimiterCallback(train_acc_limit=train_acc_limit),
         TrainingStatProviderCallback(),
-        HiddenStatesWriterCallback(log_dir=model_target_dir, writer=data_writer),
-        InputHiddenStatesWriterCallback(log_dir=model_target_dir, writer=data_writer)
+        HiddenStatesWriterCallback(log_dir=hstates_target_dir, writer=data_writer),
+        InputHiddenStatesWriterCallback(log_dir=hstates_target_dir, writer=data_writer)
     ]
 
     # Configuration initialization.
