@@ -64,9 +64,14 @@ class BaseMultiInstanceNeuralNetwork(NeuralNetwork):
 
     # region body
 
-    def compile(self, config, reset_graph, graph_seed=None):
+    def compile(self, config, reset_graph, graph_seed=None, eager=False):
         assert(isinstance(config, BaseMultiInstanceConfig))
         assert(isinstance(graph_seed, int) or graph_seed is None)
+
+        if eager is False:
+            tf.compat.v1.disable_eager_execution()
+        else:
+            tf.compat.v1.enable_eager_execution()
 
         self.__cfg = config
         tf.compat.v1.reset_default_graph()

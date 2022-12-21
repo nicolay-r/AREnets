@@ -23,7 +23,7 @@ class NeuralNetwork(object):
         return
         yield
 
-    def compile(self, config, reset_graph, graph_seed):
+    def compile(self, config, reset_graph, graph_seed, eager):
         raise NotImplementedError()
 
     def create_feed_dict(self, input, data_type):
