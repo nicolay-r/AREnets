@@ -14,18 +14,14 @@ class HiddenStatesWriterCallback(NetworkCallback):
         self.__log_dir = log_dir
         self.__writer = writer
 
-    def __target_provider(self, name, epoch_index):
-        return join(self.__log_dir, 'hparams_{name}_e{epoch}'.format(name=name, epoch=epoch_index))
+    @staticmethod
+    def __target_provider(log_dir, name, epoch_index=None):
+        target_parts = ["hparams", name]
+        if epoch_index is not None:
+            target_parts += [f'e{epoch_index}']
+        return join(log_dir, "_".join(target_parts))
 
-    def on_epoch_finished(self, pipeline, operation_cancel):
-        super(HiddenStatesWriterCallback, self).on_epoch_finished(pipeline=pipeline,
-                                                                  operation_cancel=operation_cancel)
-
-        self.__epochs_passed += 1
-
-        if len(pipeline) == 0:
-            return
-
+    def __write(self, pipeline, epoch_index=None):
         model_ctx = pipeline[0].ModelContext
         names, tensors = map(list, zip(*model_ctx.Network.iter_hidden_parameters()))
         values = model_ctx.Session.run(tensors)
@@ -36,7 +32,21 @@ class HiddenStatesWriterCallback(NetworkCallback):
 
         for value_index, name in enumerate(names):
             self.__writer.write(data=values[value_index],
-                                target=self.__target_provider(name=name, epoch_index=self.__epochs_passed))
+                                target=HiddenStatesWriterCallback.__target_provider(
+                                    log_dir=self.__log_dir, name=name, epoch_index=epoch_index))
+
+    def on_epoch_finished(self, pipeline, operation_cancel):
+        super(HiddenStatesWriterCallback, self).on_epoch_finished(pipeline=pipeline,
+                                                                  operation_cancel=operation_cancel)
+
+        self.__epochs_passed += 1
+
+        if len(pipeline) == 0:
+            return
+
+        self.__write(pipeline=pipeline, epoch_index=self.__epochs_passed)
 
     def on_predict_finished(self, pipeline):
-        self.on_epoch_finished(pipeline=pipeline, operation_cancel=None)
+        super(HiddenStatesWriterCallback, self).on_predict_finished(pipeline=pipeline)
+        
+        self.__write(pipeline=pipeline)
