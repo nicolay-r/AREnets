@@ -23,10 +23,8 @@ core API, squeezed into a tiny
 ## Installation
 
 ```bash
-pip install -r dependencies.txt
+pip install git+https://github.com/nicolay-r/AREnets@master
 ```
-
-> NOTE: `pandas` is required only for `csv` reading. It might be changed with different implementation (issue #8)
 
 ## Quick Start
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nicolay-r/AREnets/blob/master/arenets_colab_tutorial.ipynb)
@@ -60,6 +58,8 @@ predict(input_data_dir="_data", output_dir="_out", labels_count=3, model_name=Mo
 Means save results to `_out` folder for a model `cnn` located at `_data` by default.
 
 ## Input features
+
+![](docs/pattern.png)
 
 Input embedding enlarged with the task specific features.
 [[code]](https://github.com/nicolay-r/AREnets/blob/05e53b7637f57a1ce534519f2440d6553150a686/arenets/sample.py#L16)
