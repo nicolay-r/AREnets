@@ -55,3 +55,6 @@ class InputHiddenStatesWriterCallback(NetworkCallback):
                 target=target,
                 predict_log=predict_log,
                 var_name=var_name)
+
+    def on_predict_finished(self, pipeline):
+        self.on_epoch_finished(pipeline=pipeline, operation_cancel=None)

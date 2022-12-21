@@ -37,3 +37,6 @@ class HiddenStatesWriterCallback(NetworkCallback):
         for value_index, name in enumerate(names):
             self.__writer.write(data=values[value_index],
                                 target=self.__target_provider(name=name, epoch_index=self.__epochs_passed))
+
+    def on_predict_finished(self, pipeline):
+        self.on_epoch_finished(pipeline=pipeline, operation_cancel=None)
