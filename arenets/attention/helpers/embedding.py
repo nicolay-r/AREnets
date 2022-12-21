@@ -20,7 +20,7 @@ def __get_NEVS_list(ctx_network):
     i_dist_subj = "I_dist_subj"
     i_nearest_dist_obj = "I_nearest_dist_obj"
     i_nearest_dist_subj = "I_nearest_dist_subj"
-    i_sent_role_frames = "I_sent_role_frames"
+    i_frame_connotations = "I_connotation_frames"
 
     return [(i_x,
              ctx_network.TermEmbedding,
@@ -52,9 +52,9 @@ def __get_NEVS_list(ctx_network):
              ctx_network_input_or_none(InputSample.I_NEAREST_SUBJ_DISTS),
              ctx_network.Config.DistanceEmbeddingSize),
 
-            (i_sent_role_frames,
+            (i_frame_connotations,
              ctx_network.SentimentEmbedding,
-             ctx_network_input_or_none(InputSample.I_FRAME_SENT_ROLES),
+             ctx_network_input_or_none(InputSample.I_FRAME_CONNOTATIONS),
              ctx_network.Config.SentimentEmbeddingSize)
             ]
 

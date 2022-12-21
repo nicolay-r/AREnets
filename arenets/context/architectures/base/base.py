@@ -258,10 +258,10 @@ class SingleInstanceNeuralNetwork(NeuralNetwork):
             shape=[self.__cfg.BatchSize],
             name=prefix + InputSample.I_OBJ_IND)
 
-        self.__input[InputSample.I_FRAME_SENT_ROLES] = tf.compat.v1.placeholder(
+        self.__input[InputSample.I_FRAME_CONNOTATIONS] = tf.compat.v1.placeholder(
             dtype=tf.int32,
             shape=[self.__cfg.BatchSize, self.__cfg.TermsPerContext],
-            name=prefix + InputSample.I_FRAME_SENT_ROLES)
+            name=prefix + InputSample.I_FRAME_CONNOTATIONS)
 
         self.__input[InputSample.I_FRAME_INDS] = tf.compat.v1.placeholder(
             dtype=tf.int32,
@@ -317,7 +317,7 @@ class SingleInstanceNeuralNetwork(NeuralNetwork):
         yield 'obj_ind', self.__input[InputSample.I_OBJ_IND]
         yield 'subj_ind', self.__input[InputSample.I_SUBJ_IND]
         yield 'frame_inds', self.__input[InputSample.I_FRAME_INDS]
-        yield 'frame_sent_role_inds', self.__input[InputSample.I_FRAME_SENT_ROLES]
+        yield 'frame_connotation_inds', self.__input[InputSample.I_FRAME_CONNOTATIONS]
 
         # Provide base input paramaters.
         yield 'y_labels', self.Labels
@@ -349,7 +349,7 @@ class SingleInstanceNeuralNetwork(NeuralNetwork):
              tf.nn.embedding_lookup(self.__dist_emb, self.__input[InputSample.I_OBJ_DISTS]),
              tf.nn.embedding_lookup(self.__dist_emb, self.__input[InputSample.I_NEAREST_SUBJ_DISTS]),
              tf.nn.embedding_lookup(self.__dist_emb, self.__input[InputSample.I_NEAREST_OBJ_DISTS]),
-             tf.nn.embedding_lookup(self.__sent_emb, self.__input[InputSample.I_FRAME_SENT_ROLES]),
+             tf.nn.embedding_lookup(self.__sent_emb, self.__input[InputSample.I_FRAME_CONNOTATIONS]),
              term_types],
             axis=-1)
 

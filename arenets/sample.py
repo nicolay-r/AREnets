@@ -33,7 +33,7 @@ class InputSample(InputSampleBase):
     I_POS_INDS = "pos_inds"
     I_TERM_TYPE = "term_type"
     I_FRAME_INDS = 'frame_inds'
-    I_FRAME_SENT_ROLES = 'frame_roles_inds'
+    I_FRAME_CONNOTATIONS = 'frame_connotations'
 
     TERM_VALUE_MISSING = -1
 
@@ -58,7 +58,7 @@ class InputSample(InputSampleBase):
                  pos_indices,
                  term_type,
                  frame_indices,
-                 frame_sent_roles,
+                 frame_connotations,
                  input_sample_id,
                  shift_index_dbg=0):
         assert(isinstance(X, np.ndarray))
@@ -73,7 +73,7 @@ class InputSample(InputSampleBase):
         assert(isinstance(pos_indices, np.ndarray))
         assert(isinstance(term_type, np.ndarray))
         assert(isinstance(frame_indices, np.ndarray))
-        assert(isinstance(frame_sent_roles, np.ndarray))
+        assert(isinstance(frame_connotations, np.ndarray))
         assert(isinstance(shift_index_dbg, int))
 
         values = [(InputSample.I_X_INDS, X),
@@ -87,7 +87,7 @@ class InputSample(InputSampleBase):
                   (InputSample.I_NEAREST_OBJ_DISTS, dist_nearest_obj),
                   (InputSample.I_POS_INDS, pos_indices),
                   (InputSample.I_FRAME_INDS, frame_indices),
-                  (InputSample.I_FRAME_SENT_ROLES, frame_sent_roles),
+                  (InputSample.I_FRAME_CONNOTATIONS, frame_connotations),
                   (InputSample.I_TERM_TYPE, term_type)]
 
         super(InputSample, self).__init__(shift_index_dbg=shift_index_dbg,
@@ -115,7 +115,7 @@ class InputSample(InputSampleBase):
                    term_type=blank_terms,
                    dist_nearest_subj=blank_terms,
                    dist_nearest_obj=blank_terms,
-                   frame_sent_roles=blank_terms,
+                   frame_connotations=blank_terms,
                    frame_indices=blank_frames,
                    input_sample_id="1")
 
@@ -138,7 +138,7 @@ class InputSample(InputSampleBase):
                    term_type=np.random.randint(0, 3, config.TermsPerContext),
                    dist_nearest_subj=blank_terms,
                    dist_nearest_obj=blank_terms,
-                   frame_sent_roles=blank_terms,
+                   frame_connotations=blank_terms,
                    frame_indices=blank_frames,
                    input_sample_id="1")
 
@@ -172,7 +172,7 @@ class InputSample(InputSampleBase):
                                syn_obj_inds,
                                frame_inds,
                                pos_tags,
-                               frame_sent_roles):
+                               frame_connotations):
         """
         Here we first need to perform indexing of terms. Therefore, mark entities, frame_variants among them.
         None parameters considered as optional.
@@ -180,7 +180,7 @@ class InputSample(InputSampleBase):
         assert(isinstance(terms, list))
         assert(isinstance(entity_inds, list))
         assert(isinstance(frame_inds, list))
-        assert(isinstance(frame_sent_roles, list))
+        assert(isinstance(frame_connotations, list))
         assert(isinstance(terms_vocab, dict))
         assert(isinstance(subj_ind, int) and 0 <= subj_ind < len(terms))
         assert(isinstance(obj_ind, int) and 0 <= obj_ind < len(terms))
@@ -249,9 +249,9 @@ class InputSample(InputSampleBase):
             expected_size=window_size,
             filler=cls.TERM_TYPE_PAD_VALUE)
 
-        frame_sent_roles_feature = IndicesFeature.from_vector_to_be_fitted(
+        frame_connotations_feature = IndicesFeature.from_vector_to_be_fitted(
             value_vector=FrameConnotationFeatures.to_input(frame_inds=frame_inds,
-                                                           frame_sent_roles=frame_sent_roles,
+                                                           frame_connotations=frame_connotations,
                                                            size=len(terms),
                                                            filler=cls.FRAME_SENT_ROLES_PAD_VALUE),
             e1_ind=subj_ind,
@@ -312,7 +312,7 @@ class InputSample(InputSampleBase):
                    pos_indices=np.array(pos_feature.ValueVector),
                    term_type=np.array(term_type_feature.ValueVector),
                    frame_indices=np.array(frames_feature.ValueVector),
-                   frame_sent_roles=np.array(frame_sent_roles_feature.ValueVector),
+                   frame_connotations=np.array(frame_connotations_feature.ValueVector),
                    input_sample_id=input_sample_id,
                    shift_index_dbg=get_start_offset())
 

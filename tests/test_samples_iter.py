@@ -104,7 +104,7 @@ class TestSamplesIteration(unittest.TestCase):
                 is_external_vocab=True,
                 input_shapes=input_shapes,
                 frame_inds=row.TextFrameVariantIndices,
-                frame_sent_roles=row.TextFrameConnotations,
+                frame_connotations=row.TextFrameConnotations,
                 pos_tags=row.PartOfSpeechTags,
                 syn_subj_inds=row.SynonymSubjectInds,
                 syn_obj_inds=row.SynonymObjectInds)

@@ -296,10 +296,10 @@ class BaseMultiInstanceNeuralNetwork(NeuralNetwork):
             shape=[batch_size, contexts_count],
             name=prefix + InputSample.I_OBJ_IND)
 
-        self.__input[InputSample.I_FRAME_SENT_ROLES] = tf.compat.v1.placeholder(
+        self.__input[InputSample.I_FRAME_CONNOTATIONS] = tf.compat.v1.placeholder(
             dtype=tf.int32,
             shape=[batch_size, contexts_count, self.__cfg.TermsPerContext],
-            name=prefix + InputSample.I_FRAME_SENT_ROLES
+            name=prefix + InputSample.I_FRAME_CONNOTATIONS
         )
 
         self.__input[InputSample.I_FRAME_INDS] = tf.compat.v1.placeholder(
@@ -330,7 +330,7 @@ class BaseMultiInstanceNeuralNetwork(NeuralNetwork):
         yield 'obj_ind', self.__input[InputSample.I_OBJ_IND]
         yield 'subj_ind', self.__input[InputSample.I_SUBJ_IND]
         yield 'frame_inds', self.__input[InputSample.I_FRAME_INDS]
-        yield 'frame_sent_role_inds', self.__input[InputSample.I_FRAME_SENT_ROLES]
+        yield 'frame_connotation_inds', self.__input[InputSample.I_FRAME_CONNOTATIONS]
 
         # Provide base input parameters.
         yield 'y_labels', self.Labels
