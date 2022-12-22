@@ -1,5 +1,3 @@
-import pandas as pd
-
 from arenets.arekit.common.data import const
 from . import const as network_input_const
 from ...arekit.common.utils import filter_whitespaces, split_by_whitespaces
@@ -40,13 +38,14 @@ parse_value = {
 
 
 class ParsedSampleRow(object):
-    """
-    Provides a parsed information for a sample row.
-    TODO. Use this class as API
+    """ Provides a parsed information for a sample row.
     """
 
     def __init__(self, row):
-        assert(isinstance(row, pd.Series))
+        """ row: dict
+                dict of the pairs ("field_name", value)
+        """
+        assert(isinstance(row, dict))
 
         self.__uint_label = None
         self.__params = {}

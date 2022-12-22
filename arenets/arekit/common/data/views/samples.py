@@ -15,8 +15,9 @@ class LinkedSamplesStorageView(object):
 
         linked = []
         current_opinion_id = undefined
-        for row_index, sample_id in enumerate(storage.iter_column_values(const.ID)):
-            sample_id = str(sample_id)
+
+        for _, row_dict in storage:
+            sample_id = str(row_dict[const.ID])
             opinion_id = self.__row_ids_provider.parse_opinion_in_sample_id(sample_id)
             if current_opinion_id != undefined:
                 if opinion_id != current_opinion_id:
@@ -26,7 +27,7 @@ class LinkedSamplesStorageView(object):
             else:
                 current_opinion_id = opinion_id
 
-            linked.append(storage.get_row(row_index))
+            linked.append(row_dict)
 
         if len(linked) > 0:
             yield linked

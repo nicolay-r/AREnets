@@ -1,14 +1,12 @@
 from os.path import dirname, join
 
-import pandas as pd
 import gzip
 import sys
 import unittest
 
-
 sys.path.append('../')
 
-from arenets.arekit.common.data import const
+from arenets.arekit.contrib.utils.data.readers.csv_pd import PandasCsvReader
 from arenets.core.input.rows_parser import ParsedSampleRow
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.sample import InputSample
@@ -48,13 +46,9 @@ class TestSamplesIteration(unittest.TestCase):
     @staticmethod
     def __iter_tsv_gzip(input_file):
         """Reads a tab separated value file."""
-        df = pd.read_csv(input_file,
-                         compression='gzip',
-                         sep='\t',
-                         encoding='utf-8')
-
-        for row_index, _ in enumerate(df[const.ID]):
-            yield df.iloc[row_index]
+        reader = PandasCsvReader(compression='gzip', sep='\t', encoding='utf-8')
+        for _, row in reader.read(input_file):
+            yield row
 
     @staticmethod
     def __read_vocab(input_file):
@@ -126,8 +120,8 @@ class TestSamplesIteration(unittest.TestCase):
                 print("frame_connots_uint: {}".format(row.TextFrameConnotations))
                 print("syn_obj: {}".format(row.SynonymObjectInds))
                 print("syn_subj: {}".format(row.SynonymSubjectInds))
-                print("terms:".format(row.Terms))
-                print("pos_tags:".format(row.PartOfSpeechTags))
+                print("terms: {}".format(row.Terms))
+                print("pos_tags: {}".format(row.PartOfSpeechTags))
 
                 print(self.__terms_to_text_line(terms=row.Terms, frame_inds_set=set(row.TextFrameVariantIndices)))
 
