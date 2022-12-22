@@ -55,7 +55,6 @@ def predict(input_data_dir, output_dir, labels_count,
             HiddenStatesWriterCallback(log_dir=hstates_dir, writer=data_writer),
             InputHiddenStatesWriterCallback(log_dir=hstates_dir, writer=data_writer)
         ]
-        print(callbacks)
 
     ppl = BasePipeline(pipeline=[
         TensorflowNetworkInferencePipelineItem(
