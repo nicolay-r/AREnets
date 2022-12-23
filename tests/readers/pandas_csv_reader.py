@@ -1,7 +1,7 @@
 import pandas as pd
 
 from arenets.arekit.common.data.input.reader import BaseReader
-from arenets.arekit.contrib.utils.data.storages.pandas_based import PandasBasedRowsStorage
+from tests.readers.pandas_storage import PandasBasedRowsStorage
 
 
 class PandasCsvReader(BaseReader):
@@ -30,3 +30,6 @@ class PandasCsvReader(BaseReader):
     def read(self, target):
         df = self.__from_csv(filepath=target)
         return PandasBasedRowsStorage(df)
+
+    def target_extension(self):
+        return ".tsv.gz"

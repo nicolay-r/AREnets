@@ -2,7 +2,7 @@ from os.path import join
 
 from arenets.arekit.common.data_type import DataType
 from arenets.arekit.common.pipeline.base import BasePipeline
-from arenets.arekit.contrib.utils.data.readers.csv_pd import PandasCsvReader
+from arenets.arekit.contrib.utils.data.readers.jsonl import JsonlReader
 from arenets.arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
 from arenets.arekit.contrib.utils.io_utils.samples import SamplesIO
 from arenets.core.callback.hidden import HiddenStatesWriterCallback
@@ -21,7 +21,7 @@ from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
           modify_config_func=None, model_name_suffix="model",
           vocab_filename="vocab.txt", embedding_npz_filename="term_embedding.npz",
-          epochs_count=100, model_name=ModelNames.CNN,
+          reader=JsonlReader(), epochs_count=100, model_name=ModelNames.CNN,
           bags_per_minibatch=32, bag_size=1, terms_per_context=50,
           learning_rate=0.01, embedding_dropout_keep_prob=1.0,
           dropout_keep_prob=0.9, train_acc_limit=0.99,
@@ -82,7 +82,7 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
         model_io=model_io,
         labels_count=labels_count,
         create_network_func=network_func,
-        samples_io=SamplesIO(target_dir=input_data_dir, reader=PandasCsvReader()),
+        samples_io=SamplesIO(target_dir=input_data_dir, reader=reader),
         emb_io=NpEmbeddingIO(target_dir=input_data_dir,
                              vocab_filename=vocab_filename,
                              embedding_npz_filename=embedding_npz_filename),

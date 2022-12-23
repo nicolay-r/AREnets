@@ -2,7 +2,7 @@ from os.path import join
 
 from arenets.arekit.common.data_type import DataType
 from arenets.arekit.common.pipeline.base import BasePipeline
-from arenets.arekit.contrib.utils.data.readers.csv_pd import PandasCsvReader
+from arenets.arekit.contrib.utils.data.readers.jsonl import JsonlReader
 from arenets.arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
 from arenets.arekit.contrib.utils.io_utils.samples import SamplesIO
 from arenets.core.callback.hidden import HiddenStatesWriterCallback
@@ -24,6 +24,7 @@ def predict(input_data_dir, output_dir, labels_count,
             callbacks=None,
             bag_size=1,
             bags_per_minibatch=32,
+            reader=JsonlReader(),
             model_name=ModelNames.CNN,
             data_type=DataType.Test,
             vocab_filename="vocab.txt",
@@ -72,7 +73,7 @@ def predict(input_data_dir, output_dir, labels_count,
     ])
 
     input_data = {
-        "samples_io": SamplesIO(target_dir=input_data_dir, reader=PandasCsvReader()),
+        "samples_io": SamplesIO(target_dir=input_data_dir, reader=reader),
         "emb_io": NpEmbeddingIO(target_dir=input_data_dir,
                                 vocab_filename=vocab_filename,
                                 embedding_npz_filename=embedding_npz_filename),

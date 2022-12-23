@@ -6,11 +6,12 @@ import unittest
 
 sys.path.append('../')
 
-from arenets.arekit.contrib.utils.data.readers.csv_pd import PandasCsvReader
 from arenets.core.input.rows_parser import ParsedSampleRow
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.sample import InputSample
 from arenets.shapes import NetworkInputShapes
+
+from tests.readers.pandas_csv_reader import PandasCsvReader
 
 
 class TestSamplesIteration(unittest.TestCase):

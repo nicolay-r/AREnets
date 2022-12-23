@@ -2,7 +2,6 @@ from os.path import join
 
 from arenets.arekit.common.data.input.reader import BaseReader
 from arenets.arekit.common.experiment.api.base_samples_io import BaseSamplesIO
-from arenets.arekit.contrib.utils.data.ext import create_reader_extension
 from arenets.arekit.contrib.utils.io_utils.utils import check_targets_existence, filename_template
 
 
@@ -13,19 +12,13 @@ class SamplesIO(BaseSamplesIO):
         Samples required for machine learning training/inferring.
     """
 
-    def __init__(self, target_dir, reader=None, prefix="sample", target_extension=None):
+    def __init__(self, target_dir, reader=None, prefix="sample"):
         assert(isinstance(target_dir, str))
         assert(isinstance(prefix, str))
         assert(isinstance(reader, BaseReader) or reader is None)
-        assert(isinstance(target_extension, str) or target_extension is None)
         self.__target_dir = target_dir
         self.__prefix = prefix
         self.__reader = reader
-        self.__target_extension = target_extension
-
-        if target_extension is None:
-            if reader is not None:
-                self.__target_extension = create_reader_extension(reader)
 
     # region public methods
 
@@ -54,7 +47,7 @@ class SamplesIO(BaseSamplesIO):
         return self.__get_filepath(out_dir=self.__target_dir,
                                    template=template,
                                    prefix=self.__prefix,
-                                   extension=self.__target_extension)
+                                   extension=self.__reader.target_extension())
 
     @staticmethod
     def __get_filepath(out_dir, template, prefix, extension):

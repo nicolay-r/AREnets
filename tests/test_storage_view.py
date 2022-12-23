@@ -3,7 +3,7 @@ from os.path import join, dirname
 
 from arenets.arekit.common.data.row_ids.base import BaseIDProvider
 from arenets.arekit.common.data.views.samples import LinkedSamplesStorageView
-from arenets.arekit.contrib.utils.data.readers.csv_pd import PandasCsvReader
+from tests.readers.pandas_csv_reader import PandasCsvReader
 
 
 class TestSamplesStorageView(unittest.TestCase):
@@ -18,4 +18,3 @@ class TestSamplesStorageView(unittest.TestCase):
         samples_view = LinkedSamplesStorageView(row_ids_provider=BaseIDProvider())
         for data in samples_view.iter_from_storage(storage):
             print(type(data))
-        print(len(storage))
