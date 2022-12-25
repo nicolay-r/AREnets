@@ -26,14 +26,13 @@ from arenets.utils import rm_dir_contents
 class NetworksTrainingPipelineItem(BasePipelineItem):
 
     def __init__(self, bags_collection_type, model_io, samples_io, emb_io,
-                 load_model, config, create_network_func, training_epochs,
+                 config, create_network_func, training_epochs,
                  labels_count, network_callbacks, prepare_model_root=True, seed=None):
         assert(callable(create_network_func))
         assert(isinstance(samples_io, SamplesIO))
         assert(isinstance(emb_io, NpEmbeddingIO))
         assert(isinstance(config, DefaultNetworkConfig))
         assert(issubclass(bags_collection_type, BagsCollection))
-        assert(isinstance(load_model, bool))
         assert(isinstance(seed, int) or seed is None)
         assert(isinstance(training_epochs, int))
         assert(isinstance(network_callbacks, list))
@@ -49,7 +48,6 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
         self.__create_network_func = create_network_func
         self.__bags_collection_type = bags_collection_type
         self.__network_callbacks = network_callbacks
-        self.__load_model = load_model
         self.__training_epochs = training_epochs
         self.__labels_count = labels_count
         self.__model_io = model_io

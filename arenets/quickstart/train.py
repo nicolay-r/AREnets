@@ -78,7 +78,6 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
         modify_config_func(config)
 
     pipeline_item = NetworksTrainingPipelineItem(
-        load_model=True,
         model_io=model_io,
         labels_count=labels_count,
         create_network_func=network_func,
