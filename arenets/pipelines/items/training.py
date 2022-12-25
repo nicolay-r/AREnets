@@ -108,7 +108,7 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
             load_target_func=lambda dtype: self.__samples_io.create_target(data_type=dtype),
             samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
             samples_reader=self.__samples_io.Reader,
-            is_external_vocab=self.__model_io.IsPretrainedStateProvided,
+            is_external_vocab=not self.__model_io.IsPretrainedStateProvided,
             labels_count=self.__labels_count,
             terms_vocab=self.__emb_io.load_vocab(),
             bags_collection_type=self.__bags_collection_type,
