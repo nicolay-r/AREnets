@@ -14,3 +14,9 @@ class NpzEmbeddingHelper:
         logger.info("Embedding read [size={size}]: {filepath}".format(size=embedding.shape,
                                                                       filepath=source))
         return embedding
+    
+    @staticmethod
+    def save_embedding(data, target):
+        NpzRepositoryUtils.save(data=data, target=target)
+        logger.info("Saving embedding [size={shape}]: {filepath}".format(shape=data.shape,
+                                                                         filepath=target))

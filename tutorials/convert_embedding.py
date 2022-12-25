@@ -1,7 +1,10 @@
 from os.path import join
 import numpy as np
 
-words = []
+from arenets.arekit.contrib.utils.np_utils.embedding import NpzEmbeddingHelper
+from arenets.arekit.contrib.utils.np_utils.vocab import VocabRepositoryUtils
+
+vocab = []
 vectors = []
 shape = None
 dir = "_data/wiki"
@@ -15,21 +18,18 @@ with open(embedding_source, "r") as f:
 
         if i == 0:
             shape = (int(args[0]), int(args[1]))
-            print(shape)
             continue
 
         word = args[0]
+
+        assert(word != "")
+
         vector = [float(i) for i in args[1:]]
-        words.append(word.strip())
+        vocab.append(word)
         vectors.append(vector)
 
 vocabulary_target = join(dir, "vocab.txt")
-print("Saving Vocabulary: {}".format(vocabulary_target))
-with open(vocabulary_target, "w") as f:
-    for w in words:
-        f.write("{}\n".format(w))
-
 embedding_target = join(dir, "term_embedding")
-print("Saving embedding: {}".format(embedding_target))
-embedding = np.concatenate(vectors).reshape(shape)
-np.savez(embedding_target, embedding)
+
+VocabRepositoryUtils.save(vocab, vocabulary_target)
+NpzEmbeddingHelper.save_embedding(np.concatenate(vectors).reshape(shape), embedding_target)

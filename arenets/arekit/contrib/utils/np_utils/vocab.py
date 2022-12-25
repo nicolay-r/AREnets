@@ -13,3 +13,8 @@ class VocabRepositoryUtils(object):
         vocab = np.loadtxt(source, dtype=str, comments=None)
         logger.info("Loading vocabulary [size={size}]: {filepath}".format(size=len(vocab), filepath=source))
         return vocab
+
+    @staticmethod
+    def save(data, target):
+        logger.info("Saving vocabulary [size={size}]: {filepath}".format(size=len(data), filepath=target))
+        np.savetxt(target, data, fmt='%s')
