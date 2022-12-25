@@ -178,18 +178,16 @@ class InputSample(InputSampleBase):
         None parameters considered as optional.
         """
         assert(isinstance(terms, list))
-        assert(isinstance(entity_inds, list))
-        assert(isinstance(frame_inds, list))
-        assert(isinstance(frame_connotations, list))
         assert(isinstance(terms_vocab, dict))
         assert(isinstance(subj_ind, int) and 0 <= subj_ind < len(terms))
         assert(isinstance(obj_ind, int) and 0 <= obj_ind < len(terms))
         assert(isinstance(input_shapes, NetworkInputShapes))
-        assert(isinstance(syn_subj_inds, list))
-        assert(isinstance(syn_obj_inds, list))
-        assert(isinstance(pos_tags, list))
-        assert(len(terms) == len(pos_tags))
-        assert(subj_ind != obj_ind)
+        assert(isinstance(entity_inds, list) or entity_inds is None)
+        assert(isinstance(syn_subj_inds, list) or syn_subj_inds is None)
+        assert(isinstance(syn_obj_inds, list) or syn_obj_inds is None)
+        assert(isinstance(frame_inds, list) or frame_inds is None)
+        assert(isinstance(pos_tags, list) or pos_tags is None)
+        assert(isinstance(frame_connotations, list) or frame_connotations is None)
 
         def shift_index(ind):
             return ind - get_start_offset()
@@ -200,6 +198,20 @@ class InputSample(InputSampleBase):
         def get_end_offset():
             return x_feature.EndIndex
 
+        # Setup default parameters.
+        entity_inds = [] if entity_inds is None else entity_inds
+        frame_inds = [] if frame_inds is None else frame_inds
+        frame_connotations = [] if frame_connotations is None else frame_connotations
+        syn_subj_inds = [subj_ind] if syn_subj_inds is None else syn_subj_inds
+        syn_obj_inds = [obj_ind] if syn_obj_inds is None else syn_obj_inds
+        pos_tags = [0] * len(terms) if pos_tags is None else pos_tags
+
+        # * Check the compatibility of the provided pos_tags with respect to the given terms.
+        # * Check that we do not organize the loop relation.
+        assert(len(terms) == len(pos_tags))
+        assert(subj_ind != obj_ind)
+
+        # Setup entities set.
         entities_set = set(entity_inds)
 
         # Composing vectors

@@ -10,7 +10,8 @@ def __process_values_list(value):
 
 
 def __process_indices_list(value):
-    return [int(v) for v in str(value).split(network_input_const.ArgsSep)]
+    assert(isinstance(value, str))
+    return [] if not value else [int(v) for v in str(value).split(network_input_const.ArgsSep)]
 
 
 def __process_int_values_list(value):
@@ -63,6 +64,9 @@ class ParsedSampleRow(object):
 
             self.__params[key] = parse_value[key](value)
 
+    def __value_or_none(self, k):
+        return self.__params[k] if k in self.__params else None
+
     @property
     def SampleID(self):
         return self.__params[const.ID]
@@ -85,27 +89,27 @@ class ParsedSampleRow(object):
 
     @property
     def PartOfSpeechTags(self):
-        return self.__params[network_input_const.PosTags]
+        return self.__value_or_none(network_input_const.PosTags)
 
     @property
     def TextFrameVariantIndices(self):
-        return self.__params[network_input_const.FrameVariantIndices]
+        return self.__value_or_none(network_input_const.FrameVariantIndices)
 
     @property
     def TextFrameConnotations(self):
-        return self.__params[network_input_const.FrameConnotations]
+        return self.__value_or_none(network_input_const.FrameConnotations)
 
     @property
     def EntityInds(self):
-        return self.__params[const.ENTITIES]
+        return self.__value_or_none(const.ENTITIES)
 
     @property
     def SynonymObjectInds(self):
-        return self.__params[network_input_const.SynonymObject]
+        return self.__value_or_none(network_input_const.SynonymObject)
 
     @property
     def SynonymSubjectInds(self):
-        return self.__params[network_input_const.SynonymSubject]
+        return self.__value_or_none(network_input_const.SynonymSubject)
 
     def __getitem__(self, item):
         assert (isinstance(item, str) or item is None)
