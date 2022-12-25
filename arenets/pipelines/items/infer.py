@@ -24,7 +24,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
 
     def __init__(self, model_name, bags_collection_type, model_input_type, predict_writer,
                  data_type, bag_size, bags_per_minibatch, nn_io, labels_count, callbacks,
-                 samples_reader, modify_config_func=None, part_of_speech_types_count=100):
+                 modify_config_func=None, part_of_speech_types_count=100):
         assert(isinstance(callbacks, list))
         assert(isinstance(bag_size, int))
         assert(isinstance(predict_writer, BasePredictWriter))
@@ -61,7 +61,6 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
             PredictResultWriterCallback(labels_count=labels_count, writer=predict_writer)
         ]
 
-        self.__samples_reader = samples_reader
         self.__writer = predict_writer
         self.__bags_collection_type = bags_collection_type
         self.__data_type = data_type
@@ -95,7 +94,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
             dtypes=[self.__data_type],
             bags_collection_type=self.__bags_collection_type,
             load_target_func=lambda data_type: samples_io.create_target(data_type=data_type),
-            samples_reader=self.__samples_reader,
+            samples_reader=samples_io.Reader,
             samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
             is_external_vocab=True,
             terms_vocab=terms_vocab,
