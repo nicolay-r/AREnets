@@ -12,11 +12,11 @@ dir = "_data/wiki"
 embedding_source = join(dir, "model.txt")
 print("Reading Embedding: {}".format(embedding_source))
 with open(embedding_source, "r") as f:
-    for i, line in enumerate(f.readlines()):
+    for line_index, line in enumerate(f.readlines()):
 
         args = line.split()
 
-        if i == 0:
+        if line_index == 0:
             shape = (int(args[0]), int(args[1]))
             continue
 
@@ -25,7 +25,7 @@ with open(embedding_source, "r") as f:
         assert(word != "")
 
         vector = [float(i) for i in args[1:]]
-        vocab.append(word)
+        vocab.append([word, line_index])
         vectors.append(vector)
 
 vocabulary_target = join(dir, "vocab.txt")
