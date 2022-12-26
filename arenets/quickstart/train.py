@@ -20,7 +20,7 @@ from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 
 def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
           modify_config_func=None, model_name_suffix="model",
-          vocab_filename="vocab.txt", unknown_term_index=-1,
+          vocab_filename="vocab.txt", unknown_term_index=0,
           embedding_npz_filename="term_embedding.npz",
           reader=JsonlReader(), epochs_count=100, model_name=ModelNames.CNN,
           bags_per_minibatch=32, bag_size=1, terms_per_context=50,

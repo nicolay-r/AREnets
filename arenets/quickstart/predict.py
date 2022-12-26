@@ -28,7 +28,7 @@ def predict(input_data_dir, output_dir, labels_count,
             model_name=ModelNames.CNN,
             data_type=DataType.Test,
             vocab_filename="vocab.txt",
-            unknown_term_index=-1,
+            unknown_term_index=0,
             embedding_npz_filename="term_embedding.npz"):
     """ Perform inference for dataset using a pre-trained collection
         This is a pipeline-based implementation, taken from
