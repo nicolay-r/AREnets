@@ -102,7 +102,8 @@ class TestSamplesIteration(unittest.TestCase):
                 frame_connotations=row.TextFrameConnotations,
                 pos_tags=row.PartOfSpeechTags,
                 syn_subj_inds=row.SynonymSubjectInds,
-                syn_obj_inds=row.SynonymObjectInds)
+                syn_obj_inds=row.SynonymObjectInds,
+                unknown_term_index=0)
 
             if sample._shift_index_dbg == 0 and self.__show_shifted_examples:
                 continue

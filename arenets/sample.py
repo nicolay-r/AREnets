@@ -171,7 +171,7 @@ class InputSample(InputSampleBase):
                                frame_inds,
                                pos_tags,
                                frame_connotations,
-                               unknown_term_index=-1):
+                               unknown_term_index):
         """
         Here we first need to perform indexing of terms. Therefore, mark entities, frame_variants among them.
         None parameters considered as optional.
@@ -187,6 +187,7 @@ class InputSample(InputSampleBase):
         assert(isinstance(frame_inds, list) or frame_inds is None)
         assert(isinstance(pos_tags, list) or pos_tags is None)
         assert(isinstance(frame_connotations, list) or frame_connotations is None)
+        assert(isinstance(unknown_term_index, int))
 
         def shift_index(ind):
             return ind - get_start_offset()
