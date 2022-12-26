@@ -85,6 +85,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
         # Fetch other required in further information from input_data.
         embedding = emb_io.load_embedding()
         terms_vocab = emb_io.load_vocab()
+        unknown_term_index = emb_io.UnknownTermIndex
 
         # Setup config parameters.
         self.__config.set_term_embedding(embedding)
@@ -98,6 +99,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
             samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
             is_external_vocab=True,
             terms_vocab=terms_vocab,
+            unknown_term_index=unknown_term_index,
             labels_count=self.__config.ClassesCount,
             input_shapes=NetworkInputShapes(iter_pairs=[
                 (NetworkInputShapes.FRAMES_PER_CONTEXT, self.__config.FramesPerContext),

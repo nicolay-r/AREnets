@@ -44,7 +44,7 @@ class InferenceContext(object):
         return cls(sample_label_pairs_dict={}, bags_collections_dict={})
 
     def initialize(self, dtypes, load_target_func, samples_view, samples_reader, is_external_vocab,
-                   terms_vocab, labels_count, bags_collection_type, bag_size, input_shapes):
+                   terms_vocab, unknown_term_index, labels_count, bags_collection_type, bag_size, input_shapes):
         """
         Perform reading information from the serialized experiment inputs.
         Initializing core configuration.
@@ -70,7 +70,8 @@ class InferenceContext(object):
                 terms_vocab=terms_vocab,
                 bag_size=bag_size,
                 input_shapes=input_shapes,
-                desc="Filling bags collection [{}]".format(data_type))
+                desc="Filling bags collection [{}]".format(data_type),
+                unknown_term_index=unknown_term_index)
 
             uint_labeled_sample_row_ids = self.__get_labeled_sample_row_ids(storage)
 
@@ -96,9 +97,8 @@ class InferenceContext(object):
     # region private methods
 
     @staticmethod
-    def __read_for_data_type(linked_samples_iter, is_external_vocab,
-                             bags_collection_type, terms_vocab,
-                             bag_size, input_shapes, desc=""):
+    def __read_for_data_type(linked_samples_iter, is_external_vocab, bags_collection_type,
+                             terms_vocab, unknown_term_index, bag_size, input_shapes, desc=""):
         assert(issubclass(bags_collection_type, BagsCollection))
 
         return bags_collection_type.from_formatted_samples(
@@ -120,7 +120,8 @@ class InferenceContext(object):
                 syn_obj_inds=row.SynonymObjectInds,
                 syn_subj_inds=row.SynonymSubjectInds,
                 input_shapes=input_shapes,
-                pos_tags=row.PartOfSpeechTags))
+                pos_tags=row.PartOfSpeechTags,
+                unknown_term_index=unknown_term_index))
 
     @staticmethod
     def __get_labeled_sample_row_ids(storage):

@@ -20,7 +20,8 @@ from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 
 def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
           modify_config_func=None, model_name_suffix="model",
-          vocab_filename="vocab.txt", embedding_npz_filename="term_embedding.npz",
+          vocab_filename="vocab.txt", unknown_term_index=-1,
+          embedding_npz_filename="term_embedding.npz",
           reader=JsonlReader(), epochs_count=100, model_name=ModelNames.CNN,
           bags_per_minibatch=32, bag_size=1, terms_per_context=50,
           learning_rate=0.01, embedding_dropout_keep_prob=1.0,
@@ -38,6 +39,7 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
     assert(isinstance(input_data_dir, str))
     assert(isinstance(model_dir, str) or model_dir is None)
     assert(isinstance(model_hstates_dir, str) or model_hstates_dir is None)
+    assert(isinstance(unknown_term_index, int))
 
     model_dir = input_data_dir if model_dir is None else model_dir
     model_hstates_dir = input_data_dir if model_hstates_dir is None else model_hstates_dir
@@ -84,6 +86,7 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
         samples_io=SamplesIO(target_dir=input_data_dir, reader=reader),
         emb_io=NpEmbeddingIO(target_dir=input_data_dir,
                              vocab_filename=vocab_filename,
+                             unknown_ind=unknown_term_index,
                              embedding_npz_filename=embedding_npz_filename),
         config=config,
         bags_collection_type=SingleBagsCollection,

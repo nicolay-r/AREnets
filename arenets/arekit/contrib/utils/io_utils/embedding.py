@@ -15,13 +15,20 @@ class NpEmbeddingIO(BaseEmbeddingIO):
             - embedding vocabulary.
     """
 
-    def __init__(self, target_dir, vocab_filename="vocab.txt", embedding_npz_filename="term_embedding.npz"):
+    def __init__(self, target_dir, unknown_ind, vocab_filename="vocab.txt",
+                 embedding_npz_filename="term_embedding.npz"):
         assert(isinstance(target_dir, str))
+        assert(isinstance(unknown_ind, int))
         assert(isinstance(vocab_filename, str))
         assert(isinstance(embedding_npz_filename, str))
         self.__target_dir = target_dir
+        self.__unknown_ind = unknown_ind
         self.__vocab_filename = vocab_filename
         self.__embedding_npz_filename = embedding_npz_filename
+
+    @property
+    def UnknownTermIndex(self):
+        return self.__unknown_ind
 
     # region Embedding-related data
 

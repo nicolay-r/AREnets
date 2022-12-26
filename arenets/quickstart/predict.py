@@ -28,6 +28,7 @@ def predict(input_data_dir, output_dir, labels_count,
             model_name=ModelNames.CNN,
             data_type=DataType.Test,
             vocab_filename="vocab.txt",
+            unknown_term_index=-1,
             embedding_npz_filename="term_embedding.npz"):
     """ Perform inference for dataset using a pre-trained collection
         This is a pipeline-based implementation, taken from
@@ -42,6 +43,7 @@ def predict(input_data_dir, output_dir, labels_count,
     assert(isinstance(input_data_dir, str))
     assert(isinstance(output_dir, str))
     assert(isinstance(callbacks, list) or callbacks is None)
+    assert(isinstance(unknown_term_index, int))
 
     model_io = TensorflowNeuralNetworkModelIO(
         model_name="-".join([model_name.value, model_name_suffix]),
@@ -76,6 +78,7 @@ def predict(input_data_dir, output_dir, labels_count,
         "samples_io": SamplesIO(target_dir=input_data_dir, reader=reader),
         "emb_io": NpEmbeddingIO(target_dir=input_data_dir,
                                 vocab_filename=vocab_filename,
+                                unknown_ind=unknown_term_index,
                                 embedding_npz_filename=embedding_npz_filename),
         "predict_root": output_dir
     }

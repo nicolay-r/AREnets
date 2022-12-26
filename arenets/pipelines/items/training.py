@@ -111,6 +111,7 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
             is_external_vocab=not self.__model_io.IsPretrainedStateProvided,
             labels_count=self.__labels_count,
             terms_vocab=self.__emb_io.load_vocab(),
+            unknown_term_index=self.__emb_io.UnknownTermIndex,
             bags_collection_type=self.__bags_collection_type,
             input_shapes=NetworkInputShapes(iter_pairs=[
                 (NetworkInputShapes.FRAMES_PER_CONTEXT, self.__config.FramesPerContext),

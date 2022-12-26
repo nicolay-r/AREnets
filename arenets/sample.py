@@ -35,8 +35,6 @@ class InputSample(InputSampleBase):
     I_FRAME_INDS = 'frame_inds'
     I_FRAME_CONNOTATIONS = 'frame_connotations'
 
-    TERM_VALUE_MISSING = -1
-
     # TODO: Should be -1, but now it is not supported
     FRAME_SENT_ROLES_PAD_VALUE = 0
     FRAMES_PAD_VALUE = 0
@@ -143,7 +141,7 @@ class InputSample(InputSampleBase):
                    input_sample_id="1")
 
     @classmethod
-    def __get_index_by_term(cls, term, terms_vocab, is_external_vocab):
+    def __get_index_by_term(cls, term, terms_vocab, is_external_vocab, unknown_term_index):
 
         if not is_external_vocab:
             # Since we consider that all the existed terms presented in vocabulary
@@ -152,7 +150,7 @@ class InputSample(InputSampleBase):
 
         # In case of non-native vocabulary, we consider an additional
         # placeholed when the related term has not been found in vocabulary.
-        return terms_vocab[term] if term in terms_vocab else cls.TERM_VALUE_MISSING
+        return terms_vocab[term] if term in terms_vocab else unknown_term_index
 
     @staticmethod
     def calc_dist_between_text_opinion_end_indices(pos1_ind, pos2_ind):
@@ -172,7 +170,8 @@ class InputSample(InputSampleBase):
                                syn_obj_inds,
                                frame_inds,
                                pos_tags,
-                               frame_connotations):
+                               frame_connotations,
+                               unknown_term_index=-1):
         """
         Here we first need to perform indexing of terms. Therefore, mark entities, frame_variants among them.
         None parameters considered as optional.
@@ -215,7 +214,8 @@ class InputSample(InputSampleBase):
         entities_set = set(entity_inds)
 
         # Composing vectors
-        x_indices = np.array([cls.__get_index_by_term(term, terms_vocab, is_external_vocab) for term in terms])
+        x_indices = np.array([cls.__get_index_by_term(term, terms_vocab, is_external_vocab, unknown_term_index)
+                              for term in terms])
 
         terms_per_context = input_shapes.get_shape(input_shapes.TERMS_PER_CONTEXT)
         synonyms_per_context = input_shapes.get_shape(input_shapes.SYNONYMS_PER_CONTEXT)

@@ -2,6 +2,10 @@ class BaseEmbeddingIO(object):
     """ API for loading and saving embedding and vocabulary related data.
     """
 
+    @property
+    def UnknownTermIndex(self):
+        raise NotImplementedError()
+
     def load_vocab(self):
         raise NotImplementedError()
 
