@@ -20,7 +20,6 @@ def predict(input_data_dir, output_dir, labels_count,
             hstates_dir=None,
             modify_config_func=None,
             save_hidden_states=True,
-            model_name_suffix="model",
             callbacks=None,
             bag_size=1,
             bags_per_minibatch=32,
@@ -46,8 +45,8 @@ def predict(input_data_dir, output_dir, labels_count,
     assert(isinstance(unknown_term_index, int))
 
     model_io = TensorflowNeuralNetworkModelIO(
-        model_name="-".join([model_name.value, model_name_suffix]),
-        source_dir=output_dir)
+        model_name=model_name.value,
+        source_dir=input_data_dir)
 
     # Setup callbacks.
     callbacks = [] if callbacks is None else callbacks

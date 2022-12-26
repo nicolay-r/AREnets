@@ -46,7 +46,9 @@ class TensorflowNetworkStatesProvider(object):
             logger.info('Skipping loading process!"')
             return
 
+        logger.info("----------------------------------")
         logger.info("Loading Tensorflow model state: {}".format(saved_model_dir))
+        logger.info("----------------------------------")
         self.__load_model_core(session=sess, save_path=saved_model_dir)
 
     def save_model(self, sess, path_tf_prefix):
