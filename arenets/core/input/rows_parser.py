@@ -5,12 +5,16 @@ from ...arekit.common.utils import filter_whitespaces, split_by_whitespaces
 empty_list = []
 
 
+def no_value():
+    return None
+
+
 def __process_values_list(value):
     return value.split(network_input_const.ArgsSep)
 
 
 def __process_indices_list(value):
-    return [] if not value else [int(v) for v in str(value).split(network_input_const.ArgsSep)]
+    return no_value() if not value else [int(v) for v in str(value).split(network_input_const.ArgsSep)]
 
 
 def __process_int_values_list(value):
@@ -63,8 +67,8 @@ class ParsedSampleRow(object):
 
             self.__params[key] = parse_value[key](value)
 
-    def __value_or_none(self, k):
-        return self.__params[k] if k in self.__params else None
+    def __value_or_none(self, key):
+        return self.__params[key] if key in self.__params else no_value()
 
     @property
     def SampleID(self):
@@ -113,8 +117,8 @@ class ParsedSampleRow(object):
     def __getitem__(self, item):
         assert (isinstance(item, str) or item is None)
         if item not in self.__params:
-            return None
-        return self.__params[item] if item is not None else None
+            return no_value()
+        return self.__params[item] if item is not None else no_value()
 
     @classmethod
     def parse(cls, row):
