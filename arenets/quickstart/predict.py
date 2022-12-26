@@ -53,7 +53,7 @@ def predict(input_data_dir, output_dir, labels_count,
     callbacks = [] if callbacks is None else callbacks
     if save_hidden_states:
         data_writer = NpzDataWriter()
-        hstates_dir = join(output_dir, "hidden") if hstates_dir is None else hstates_dir
+        hstates_dir = join(model_io.get_model_source_path_tf_prefix(), "hidden") if hstates_dir is None else hstates_dir
         callbacks += [
             HiddenStatesWriterCallback(log_dir=hstates_dir, writer=data_writer),
             InputHiddenStatesWriterCallback(log_dir=hstates_dir, writer=data_writer)
