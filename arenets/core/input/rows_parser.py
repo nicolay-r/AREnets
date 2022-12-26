@@ -10,7 +10,6 @@ def __process_values_list(value):
 
 
 def __process_indices_list(value):
-    assert(isinstance(value, str))
     return [] if not value else [int(v) for v in str(value).split(network_input_const.ArgsSep)]
 
 

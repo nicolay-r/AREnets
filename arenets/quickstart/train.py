@@ -1,12 +1,8 @@
-from os.path import join
-
 from arenets.arekit.common.data_type import DataType
 from arenets.arekit.common.pipeline.base import BasePipeline
 from arenets.arekit.contrib.utils.data.readers.jsonl import JsonlReader
 from arenets.arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
 from arenets.arekit.contrib.utils.io_utils.samples import SamplesIO
-from arenets.core.callback.hidden import HiddenStatesWriterCallback
-from arenets.core.callback.hidden_input import InputHiddenStatesWriterCallback
 from arenets.core.callback.stat import TrainingStatProviderCallback
 from arenets.core.callback.train_limiter import TrainingLimiterCallback
 from arenets.core.feeding.bags.collection.single import SingleBagsCollection
@@ -14,15 +10,15 @@ from arenets.core.model_io import TensorflowNeuralNetworkModelIO
 from arenets.enum_input_types import ModelInputType
 from arenets.enum_name_types import ModelNames
 from arenets.factory import create_network_and_network_config_funcs
-from arenets.np_utils.writer import NpzDataWriter
 from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 
 
 def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
-          modify_config_func=None, model_name_suffix="model",
+          modify_config_func=None,
           vocab_filename="vocab.txt", unknown_term_index=0,
           embedding_npz_filename="term_embedding.npz",
-          reader=JsonlReader(), epochs_count=100, model_name=ModelNames.CNN,
+          reader=JsonlReader(), callbacks=None,
+          epochs_count=100, model_name=ModelNames.CNN,
           bags_per_minibatch=32, bag_size=1, terms_per_context=50,
           learning_rate=0.01, embedding_dropout_keep_prob=1.0,
           dropout_keep_prob=0.9, train_acc_limit=0.99,
@@ -39,27 +35,23 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
     assert(isinstance(input_data_dir, str))
     assert(isinstance(model_dir, str) or model_dir is None)
     assert(isinstance(model_hstates_dir, str) or model_hstates_dir is None)
+    assert(isinstance(callbacks, list) or callbacks is None)
     assert(isinstance(unknown_term_index, int))
 
+    # Setup parameters.
     model_dir = input_data_dir if model_dir is None else model_dir
-    model_hstates_dir = input_data_dir if model_hstates_dir is None else model_hstates_dir
+    callbacks = [] if callbacks is None else callbacks
 
-    full_model_name = "-".join([model_name.value, model_name_suffix])
-    hstates_target_dir = join(model_hstates_dir, full_model_name, "hidden")
-
-    model_io = TensorflowNeuralNetworkModelIO(model_name=full_model_name,
+    model_io = TensorflowNeuralNetworkModelIO(model_name=model_name.value,
                                               target_dir=model_dir)
-    data_writer = NpzDataWriter()
 
     network_func, network_config_func = create_network_and_network_config_funcs(
         model_name=model_name,
         model_input_type=ModelInputType.SingleInstance)
 
-    network_callbacks = [
+    callbacks += [
         TrainingLimiterCallback(train_acc_limit=train_acc_limit),
         TrainingStatProviderCallback(),
-        HiddenStatesWriterCallback(log_dir=hstates_target_dir, writer=data_writer),
-        InputHiddenStatesWriterCallback(log_dir=hstates_target_dir, writer=data_writer)
     ]
 
     # Configuration initialization.
@@ -90,7 +82,7 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
                              embedding_npz_filename=embedding_npz_filename),
         config=config,
         bags_collection_type=SingleBagsCollection,
-        network_callbacks=network_callbacks,
+        network_callbacks=callbacks,
         training_epochs=epochs_count)
 
     ppl = BasePipeline([pipeline_item])
