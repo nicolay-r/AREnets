@@ -4,7 +4,6 @@ from arenets.arekit.contrib.utils.data.readers.jsonl import JsonlReader
 from arenets.arekit.contrib.utils.io_utils.embedding import NpEmbeddingIO
 from arenets.arekit.contrib.utils.io_utils.samples import SamplesIO
 from arenets.core.callback.stat import TrainingStatProviderCallback
-from arenets.core.callback.train_limiter import TrainingLimiterCallback
 from arenets.core.feeding.bags.collection.single import SingleBagsCollection
 from arenets.core.model_io import TensorflowNeuralNetworkModelIO
 from arenets.enum_input_types import ModelInputType
@@ -21,8 +20,7 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
           epochs_count=100, model_name=ModelNames.CNN,
           bags_per_minibatch=32, bag_size=1, terms_per_context=50,
           learning_rate=0.01, embedding_dropout_keep_prob=1.0,
-          dropout_keep_prob=0.9, train_acc_limit=0.99,
-          part_of_speech_types_count=100):
+          dropout_keep_prob=0.9, part_of_speech_types_count=100):
     """
         modify_config_func: func of None
             allows to declare and provide your function which modifies the contents of the config.
@@ -50,7 +48,6 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
         model_input_type=ModelInputType.SingleInstance)
 
     callbacks += [
-        TrainingLimiterCallback(train_acc_limit=train_acc_limit),
         TrainingStatProviderCallback(),
     ]
 
