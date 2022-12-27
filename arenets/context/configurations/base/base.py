@@ -268,9 +268,9 @@ class DefaultNetworkConfig(object):
     # endregion
 
     def _create_optimizer(self):
-        return tf.train.AdadeltaOptimizer(learning_rate=self.__learning_rate,
-                                          epsilon=10e-6,
-                                          rho=0.95)
+        return tf.compat.v1.train.AdadeltaOptimizer(learning_rate=self.__learning_rate,
+                                                    epsilon=10e-6,
+                                                    rho=0.95)
 
     def _internal_get_parameters(self):
         return [

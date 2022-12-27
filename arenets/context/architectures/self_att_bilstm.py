@@ -144,10 +144,10 @@ class SelfAttentionBiLSTM(SingleInstanceNeuralNetwork):
 
         with tf.name_scope("fully-connected"):
 
-            fc = tf.nn.relu(tf.nn.xw_plus_b(context_embedding, self.__W_fc, self.__b_fc), name="fc")
+            fc = tf.nn.relu(tf.compat.v1.nn.xw_plus_b(context_embedding, self.__W_fc, self.__b_fc), name="fc")
 
         with tf.name_scope("output"):
-            logits = tf.nn.xw_plus_b(x=fc, weights=self.__W_output, biases=self.__b_output, name="logits")
+            logits = tf.compat.v1.nn.xw_plus_b(x=fc, weights=self.__W_output, biases=self.__b_output, name="logits")
 
         return logits, tf.nn.dropout(logits, self.DropoutKeepProb)
 

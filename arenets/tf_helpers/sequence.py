@@ -27,7 +27,7 @@ def get_cell(hidden_size, cell_type, lstm_initializer=None, dropout_rnn_keep_pro
     else:
         Exception("Incorrect cell_type={}".format(cell_type))
 
-    dropped_cell = tf.nn.rnn_cell.DropoutWrapper(
+    dropped_cell = tf.compat.v1.nn.rnn_cell.DropoutWrapper(
         cell=cell,
         output_keep_prob=dropout_rnn_keep_prob)
 

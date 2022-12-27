@@ -15,10 +15,10 @@ class FullyConnectedLayer(SingleInstanceNeuralNetwork):
     def init_logits_unscaled(self, context_embedding):
 
         with tf.name_scope("output"):
-            logits = tf.nn.xw_plus_b(context_embedding,
-                                     self.__hidden[self.H_W],
-                                     self.__hidden[self.H_b],
-                                     name="logits")
+            logits = tf.compat.v1.nn.xw_plus_b(context_embedding,
+                                               self.__hidden[self.H_W],
+                                               self.__hidden[self.H_b],
+                                               name="logits")
 
         return logits, tf.nn.dropout(logits, self.DropoutKeepProb)
 
