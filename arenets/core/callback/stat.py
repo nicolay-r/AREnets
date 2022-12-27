@@ -28,8 +28,8 @@ class TrainingStatProviderCallback(NetworkCallback):
         kv_fmt = u"{k}: {v}"
         time = str(datetime.now())
         epochs = kv_fmt.format(k="Epoch", v=format(epoch_index))
-        avg_fc = kv_fmt.format(k="avg_fit_cost", v=round(avg_fit_cost, 3))
-        avg_ac = kv_fmt.format(k="avg_fig_acc", v=round(avg_fit_acc, 3))
+        avg_fc = kv_fmt.format(k="avg_loss", v=round(avg_fit_cost, 3))
+        avg_ac = kv_fmt.format(k="avg_acc", v=round(avg_fit_acc, 3))
         return u"{time}: {epochs}: {avg_fc}, {avg_ac}".format(
             time=time, epochs=epochs, avg_fc=avg_fc, avg_ac=avg_ac)
 
