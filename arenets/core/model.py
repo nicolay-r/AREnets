@@ -85,7 +85,7 @@ class BaseTensorflowModel(BaseModel):
 
             # Composing minibatch from bags group.
             minibatch = create_batch_by_bags_group(
-                bags_coolection_type=self.__context.BagsCollectionType,
+                bags_collection_type=self.__context.BagsCollectionType,
                 bags_group=bags_group)
 
             pipeline.run(minibatch)

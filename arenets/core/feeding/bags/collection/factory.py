@@ -4,8 +4,8 @@ from arenets.core.feeding.batch.base import MiniBatch
 from arenets.core.feeding.batch.multi import MultiInstanceMiniBatch
 
 
-def create_batch_by_bags_group(bags_coolection_type, bags_group):
-    if issubclass(bags_coolection_type, SingleBagsCollection):
+def create_batch_by_bags_group(bags_collection_type, bags_group):
+    if issubclass(bags_collection_type, SingleBagsCollection):
         return MiniBatch(bags_group)
-    if issubclass(bags_coolection_type, MultiInstanceBagsCollection):
+    if issubclass(bags_collection_type, MultiInstanceBagsCollection):
         return MultiInstanceMiniBatch(bags_group)
