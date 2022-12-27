@@ -12,25 +12,36 @@ from arenets.factory import create_network_and_network_config_funcs
 from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 
 
-def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
+def train(input_data_dir, labels_count,
+          model_dir=None,
+          model_hstates_dir=None,
+          model_input_type=ModelInputType.SingleInstance,
           modify_config_func=None,
           vocab_filename="vocab.txt", unknown_term_index=0,
           embedding_npz_filename="term_embedding.npz",
           reader=JsonlReader(), callbacks=None,
           epochs_count=100, model_name=ModelNames.CNN,
+          bags_collection_type=SingleBagsCollection,
           bags_per_minibatch=32, bag_size=1, terms_per_context=50,
           learning_rate=0.01, embedding_dropout_keep_prob=1.0,
           dropout_keep_prob=0.9, part_of_speech_types_count=100):
     """
+        model_input_type: enum
+            Optional wrap over context-based network core which allows to consider multiple contexts as a single one.
+            default: SingleInstance
         modify_config_func: func of None
             allows to declare and provide your function which modifies the contents of the config.
         model_save_dir: str
             Where to keep the Tensorflow-based serialized model state.
         model_hstates_dir: str
             Where to keep hidden states during the model process training.
+        bags_collection_type: enum
+            How data is presented; for singe instance it denotes we deal with sequence of bags, while
+            for multi-instance type, every bag contains a list of bags.
     """
     assert(callable(modify_config_func) or modify_config_func is None)
     assert(isinstance(input_data_dir, str))
+    assert(isinstance(model_input_type, ModelInputType))
     assert(isinstance(model_dir, str) or model_dir is None)
     assert(isinstance(model_hstates_dir, str) or model_hstates_dir is None)
     assert(isinstance(callbacks, list) or callbacks is None)
@@ -45,7 +56,7 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
 
     network_func, network_config_func = create_network_and_network_config_funcs(
         model_name=model_name,
-        model_input_type=ModelInputType.SingleInstance)
+        model_input_type=model_input_type)
 
     callbacks += [
         TrainingStatProviderCallback(),
@@ -78,7 +89,7 @@ def train(input_data_dir, labels_count, model_dir=None, model_hstates_dir=None,
                              unknown_ind=unknown_term_index,
                              embedding_npz_filename=embedding_npz_filename),
         config=config,
-        bags_collection_type=SingleBagsCollection,
+        bags_collection_type=bags_collection_type,
         network_callbacks=callbacks,
         training_epochs=epochs_count)
 

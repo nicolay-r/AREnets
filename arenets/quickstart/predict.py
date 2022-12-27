@@ -17,11 +17,13 @@ from arenets.pipelines.items.infer import TensorflowNetworkInferencePipelineItem
 
 
 def predict(input_data_dir, output_dir, labels_count,
+            model_input_type=ModelInputType.SingleInstance,
             hstates_dir=None,
             modify_config_func=None,
             save_hidden_states=True,
             callbacks=None,
             bag_size=1,
+            bags_collection_type=SingleBagsCollection,
             bags_per_minibatch=32,
             reader=JsonlReader(),
             model_name=ModelNames.CNN,
@@ -34,10 +36,16 @@ def predict(input_data_dir, output_dir, labels_count,
         the ARElight repository, see the following code for reference:
             https://github.com/nicolay-r/ARElight/blob/v0.22.0/arelight/pipelines/inference_nn.py
 
+        model_input_type: enum
+            Optional wrap over context-based network core which allows to consider multiple contexts as a single one.
+            default: SingleInstance
         modify_config_func: func of None
             allows to declare and provide your function which modifies the contents of the config.
         hstates_dir: str
             Where to keep hidden states during the model process training.
+        bags_collection_type: enum
+            How data is presented; for singe instance it denotes we deal with sequence of bags, while
+            for multi-instance type, every bag contains a list of bags.
     """
     assert(isinstance(input_data_dir, str))
     assert(isinstance(output_dir, str))
@@ -64,8 +72,8 @@ def predict(input_data_dir, output_dir, labels_count,
             bag_size=bag_size,
             bags_per_minibatch=bags_per_minibatch,
             model_name=model_name,
-            bags_collection_type=SingleBagsCollection,
-            model_input_type=ModelInputType.SingleInstance,
+            bags_collection_type=bags_collection_type,
+            model_input_type=model_input_type,
             predict_writer=TsvPredictWriter(),
             callbacks=callbacks,
             modify_config_func=modify_config_func,
