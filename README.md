@@ -139,3 +139,15 @@ This project has been tested under the following setup:
 ## Related Frameworks
 
 *  **OpenNRE** [[github]](https://github.com/thunlp/OpenNRE) [[paper]](https://aclanthology.org/D19-3029.pdf)
+
+## Referece
+
+```
+@misc{arenets2023,
+  author={Nicolay Rusnachenko},
+  title={AREnets: Tensorflow-based framework of neural-network applicable 
+         models for attitude and relation extraction tasks},
+  year={2023},
+  url={https://github.com/nicolay-r/AREnets},
+}
+```
