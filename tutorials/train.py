@@ -12,12 +12,13 @@ from arenets.quickstart.train import train
 def modify_config(config):
     assert(isinstance(config, DefaultNetworkConfig))
     config.modify_terms_per_context(50)
+    config.modify_dropout_keep_prob(0.8)
 
 
 input_data_dir = "_data"
 model_name = ModelNames.RCNNAttPZhou
 
-train(input_data_dir=input_data_dir, labels_count=3,
+train(input_data_dir=input_data_dir, labels_count=2,
       model_name=model_name,
       epochs_count=10,
       bags_per_minibatch=32,
