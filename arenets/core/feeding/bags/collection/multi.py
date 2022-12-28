@@ -41,17 +41,16 @@ class MultiInstanceBagsCollection(BagsCollection):
             assert(isinstance(parsed_row, ParsedSampleRow))
 
             if len(MultiInstanceBagsCollection.__last_bag(bags)) == bag_size:
-                # TODO. Use uint_label
                 bags.append(Bag(uint_label=parsed_row.UintLabel))
 
             s = create_sample_func(parsed_row)
 
-            # NOTE: Now we consider that the next appered context always continues the prior.
+            # NOTE: Now we consider that the next appeared context always continues the prior.
             prior_opinion = None
 
             if prior_opinion is not None and not MultiInstanceBagsCollection.__is_empty_last_bag(bags):
 
-                # NOTE: Now we consider that the next appered context always continues the prior.
+                # NOTE: Now we consider that the next appeared context always continues the prior.
                 is_continued = True
 
                 if not is_continued:
