@@ -45,7 +45,7 @@ parse_value = {
     network_input_const.SynonymObject: lambda value: __process_indices_list(value),
     network_input_const.SynonymSubject: lambda value: __process_indices_list(value),
     network_input_const.PosTags: lambda value: __process_int_values_list(value),
-    "text_a": lambda value: __handle_text(value)
+    network_input_const.Text: lambda value: __handle_text(value)
 }
 
 
@@ -84,7 +84,7 @@ class ParsedSampleRow(object):
     
     @property
     def Terms(self):
-        return self.__params["text_a"]
+        return self.__params[network_input_const.Text]
 
     @property
     def SubjectIndex(self):
