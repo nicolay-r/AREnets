@@ -21,6 +21,14 @@ def __process_int_values_list(value):
     return __process_indices_list(value)
 
 
+def __handle_text(value):
+    """ The core method of the input text processing.
+    """
+    assert(isinstance(value, str) or isinstance(value, list))
+    return filter_whitespaces([term for term in split_by_whitespaces(value)]
+                              if isinstance(value, str) else value)
+
+
 parse_value = {
     const.ID: lambda value: value,
     const.DOC_ID: lambda value: int(value),
@@ -37,7 +45,7 @@ parse_value = {
     network_input_const.SynonymObject: lambda value: __process_indices_list(value),
     network_input_const.SynonymSubject: lambda value: __process_indices_list(value),
     network_input_const.PosTags: lambda value: __process_int_values_list(value),
-    "text_a": lambda value: filter_whitespaces([term for term in split_by_whitespaces(value)])
+    "text_a": lambda value: __handle_text(value)
 }
 
 
