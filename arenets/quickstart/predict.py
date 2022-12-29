@@ -10,6 +10,7 @@ from arenets.core.callback.hidden_input import InputHiddenStatesWriterCallback
 from arenets.core.feeding.bags.collection.single import SingleBagsCollection
 from arenets.core.model_io import TensorflowNeuralNetworkModelIO
 from arenets.core.predict.tsv_writer import TsvPredictWriter
+from arenets.emb_converter import convert_text_embedding_if_needed
 from arenets.enum_input_types import ModelInputType
 from arenets.enum_name_types import ModelNames
 from arenets.np_utils.writer import NpzDataWriter
@@ -28,9 +29,8 @@ def predict(input_data_dir, output_dir, labels_count,
             reader=JsonlReader(),
             model_name=ModelNames.CNN,
             data_type=DataType.Test,
-            vocab_filename="vocab.txt",
-            unknown_term_index=0,
-            embedding_npz_filename="term_embedding.npz"):
+            word2vec_txt_model_name="model.txt",
+            unknown_term_index=0):
     """ Perform inference for dataset using a pre-trained collection
         This is a pipeline-based implementation, taken from
         the ARElight repository, see the following code for reference:
@@ -41,6 +41,9 @@ def predict(input_data_dir, output_dir, labels_count,
             default: SingleInstance
         modify_config_func: func of None
             allows to declare and provide your function which modifies the contents of the config.
+        word2vec_txt_model_name: str
+            this is a filename that declares word2vec model, saved as a text file, incuding vocabulary
+            and vectors for every term in particular.
         hstates_dir: str
             Where to keep hidden states during the model process training.
         bags_collection_type: enum
@@ -52,9 +55,18 @@ def predict(input_data_dir, output_dir, labels_count,
     assert(isinstance(callbacks, list) or callbacks is None)
     assert(isinstance(unknown_term_index, int))
 
-    model_io = TensorflowNeuralNetworkModelIO(
-        model_name=model_name.value,
-        source_dir=input_data_dir)
+    # Declaring model io, based on Tensorflow API.
+    model_io = TensorflowNeuralNetworkModelIO(model_name=model_name.value, source_dir=input_data_dir)
+
+    # Declaring embedding input/output parameters.
+    embedding_io = NpEmbeddingIO(target_dir=input_data_dir,
+                                 vocab_filename="vocab.txt",
+                                 unknown_ind=unknown_term_index,
+                                 embedding_npz_filename="term_embedding.npz")
+
+    if not embedding_io.check_targets_existed():
+        convert_text_embedding_if_needed(txt_embedding_filepath=join(input_data_dir, word2vec_txt_model_name),
+                                         embedding_io=embedding_io)
 
     # Setup callbacks.
     callbacks = [] if callbacks is None else callbacks
@@ -83,10 +95,7 @@ def predict(input_data_dir, output_dir, labels_count,
 
     input_data = {
         "samples_io": SamplesIO(target_dir=input_data_dir, reader=reader),
-        "emb_io": NpEmbeddingIO(target_dir=input_data_dir,
-                                vocab_filename=vocab_filename,
-                                unknown_ind=unknown_term_index,
-                                embedding_npz_filename=embedding_npz_filename),
+        "emb_io": embedding_io,
         "predict_root": output_dir
     }
 

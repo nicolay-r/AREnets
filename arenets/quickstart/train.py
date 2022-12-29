@@ -1,3 +1,5 @@
+from os.path import join
+
 from arenets.arekit.common.data_type import DataType
 from arenets.arekit.common.pipeline.base import BasePipeline
 from arenets.arekit.contrib.utils.data.readers.jsonl import JsonlReader
@@ -6,6 +8,7 @@ from arenets.arekit.contrib.utils.io_utils.samples import SamplesIO
 from arenets.core.callback.stat import TrainingStatProviderCallback
 from arenets.core.feeding.bags.collection.single import SingleBagsCollection
 from arenets.core.model_io import TensorflowNeuralNetworkModelIO
+from arenets.emb_converter import convert_text_embedding_if_needed
 from arenets.enum_input_types import ModelInputType
 from arenets.enum_name_types import ModelNames
 from arenets.factory import create_network_and_network_config_funcs
@@ -13,12 +16,10 @@ from arenets.pipelines.items.training import NetworksTrainingPipelineItem
 
 
 def train(input_data_dir, labels_count,
-          model_dir=None,
-          model_hstates_dir=None,
+          model_dir=None, model_hstates_dir=None,
           model_input_type=ModelInputType.SingleInstance,
-          modify_config_func=None,
-          vocab_filename="vocab.txt", unknown_term_index=0,
-          embedding_npz_filename="term_embedding.npz",
+          modify_config_func=None, unknown_term_index=0,
+          word2vec_txt_model_name="model.txt",
           reader=JsonlReader(), callbacks=None,
           epochs_count=100, model_name=ModelNames.CNN,
           bags_collection_type=SingleBagsCollection,
@@ -29,6 +30,9 @@ def train(input_data_dir, labels_count,
         model_input_type: enum
             Optional wrap over context-based network core which allows to consider multiple contexts as a single one.
             default: SingleInstance
+        word2vec_txt_model_name: str
+            this is a filename that declares word2vec model, saved as a text file, incuding vocabulary
+            and vectors for every term in particular.
         modify_config_func: func of None
             allows to declare and provide your function which modifies the contents of the config.
         model_save_dir: str
@@ -50,6 +54,16 @@ def train(input_data_dir, labels_count,
     # Setup parameters.
     model_dir = input_data_dir if model_dir is None else model_dir
     callbacks = [] if callbacks is None else callbacks
+
+    # Declaring embedding input/output parameters.
+    embedding_io = NpEmbeddingIO(target_dir=input_data_dir,
+                                 vocab_filename="vocab.txt",
+                                 unknown_ind=unknown_term_index,
+                                 embedding_npz_filename="term_embedding.npz")
+
+    if not embedding_io.check_targets_existed():
+        convert_text_embedding_if_needed(txt_embedding_filepath=join(input_data_dir, word2vec_txt_model_name),
+                                         embedding_io=embedding_io)
 
     model_io = TensorflowNeuralNetworkModelIO(model_name=model_name.value,
                                               target_dir=model_dir)
@@ -84,10 +98,7 @@ def train(input_data_dir, labels_count,
         labels_count=labels_count,
         create_network_func=network_func,
         samples_io=SamplesIO(target_dir=input_data_dir, reader=reader),
-        emb_io=NpEmbeddingIO(target_dir=input_data_dir,
-                             vocab_filename=vocab_filename,
-                             unknown_ind=unknown_term_index,
-                             embedding_npz_filename=embedding_npz_filename),
+        emb_io=embedding_io,
         config=config,
         bags_collection_type=bags_collection_type,
         network_callbacks=callbacks,

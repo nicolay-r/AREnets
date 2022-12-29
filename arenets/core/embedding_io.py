@@ -14,3 +14,9 @@ class BaseEmbeddingIO(object):
 
     def check_targets_existed(self):
         raise NotImplementedError()
+
+    def get_vocab_filepath(self):
+        raise NotImplementedError()
+
+    def get_embedding_filepath(self):
+        raise NotImplementedError()
