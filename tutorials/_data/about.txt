@@ -1,0 +1,2 @@
+This data is a part of the RuAttitudes collection, obtained by language transfer tool:
+https://github.com/nicolay-r/arekit-googletrans-sampler
