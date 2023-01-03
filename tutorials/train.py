@@ -6,7 +6,7 @@ from arenets.core.callback.train_limiter import TrainingLimiterCallback
 from arenets.enum_name_types import ModelNames
 from arenets.np_utils.writer import NpzDataWriter
 from arenets.quickstart.train import train
-from tutorials.nn_config import modify_config
+from nn_config import modify_config
 
 
 input_data_dir = "_data"

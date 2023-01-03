@@ -1,7 +1,7 @@
 from arenets.arekit.common.data_type import DataType
 from arenets.quickstart.predict import predict
 from arenets.enum_name_types import ModelNames
-from tutorials.nn_config import modify_config
+from nn_config import modify_config
 
 
 predict(input_data_dir="_data",
