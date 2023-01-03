@@ -13,9 +13,9 @@ input_data_dir = "_data"
 model_name = ModelNames.CNN
 
 train(input_data_dir=input_data_dir,
-      labels_count=2,
+      labels_count=3,
       model_name=model_name,
-      epochs_count=10,
+      epochs_count=20,
       bags_per_minibatch=32,
       learning_rate=0.01,
       modify_config_func=modify_config,
