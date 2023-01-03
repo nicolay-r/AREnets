@@ -32,8 +32,7 @@ pip install git+https://github.com/nicolay-r/AREnets@master
 The complete examples are in [tutorials](tutorials) folder.
 
 ### Train
-1. Prepare data at `_data`
-2. Run training:
+Prepare data at `_data` and run:
 ```python
 from arenets.quickstart.train import train
 from arenets.enum_name_types import ModelNames
@@ -45,9 +44,7 @@ up to moment once `train_acc_limit` won't be reached;
 all the model-related details will be stored at `_data` model by default.
 
 ### Infer
-1. Use data at `_data`
-2. Prepare label converter (API to be a bit simplified)
-3. Run inference:
+Use data at `_data` and run:
 ```python
 from arenets.quickstart.predict import predict
 from arenets.arekit.common.data_type import DataType
