@@ -21,8 +21,3 @@ def check_targets_existence(targets):
             result = False
 
     return result
-
-
-def filename_template(data_type):
-    assert(isinstance(data_type, DataType))
-    return "{data_type}-{iter_index}".format(data_type=data_type.name.lower(), iter_index=0)

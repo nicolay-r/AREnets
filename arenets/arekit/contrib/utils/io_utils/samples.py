@@ -2,7 +2,7 @@ from os.path import join
 
 from arenets.arekit.common.data.input.reader import BaseReader
 from arenets.arekit.common.experiment.api.base_samples_io import BaseSamplesIO
-from arenets.arekit.contrib.utils.io_utils.utils import check_targets_existence, filename_template
+from arenets.arekit.contrib.utils.io_utils.utils import check_targets_existence
 
 
 class SamplesIO(BaseSamplesIO):
@@ -43,9 +43,8 @@ class SamplesIO(BaseSamplesIO):
     # endregion
 
     def __get_input_sample_target(self, data_type):
-        template = filename_template(data_type=data_type)
         return self.__get_filepath(out_dir=self.__target_dir,
-                                   template=template,
+                                   template=data_type.name.lower(),
                                    prefix=self.__prefix,
                                    extension=self.__reader.target_extension())
 
