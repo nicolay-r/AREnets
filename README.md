@@ -29,6 +29,12 @@ pip install git+https://github.com/nicolay-r/AREnets@master
 ## Quick Start
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nicolay-r/AREnets/blob/master/arenets_colab_tutorial.ipynb)
 
+Use [google-colab](https://colab.research.google.com/github/nicolay-r/AREnets/blob/master/arenets_colab_tutorial.ipynb) 
+version like IDE to modify the train and inference code of provided tutorial:
+<p align="center">
+    <img src="docs/colab-as-ide-logo.png"/>
+</p>
+
 The complete examples are in [tutorials](tutorials) folder.
 
 First of all, prepare your `_data` folder with data required for training model and performing inference.
