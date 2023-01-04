@@ -31,6 +31,10 @@ pip install git+https://github.com/nicolay-r/AREnets@master
 
 The complete examples are in [tutorials](tutorials) folder.
 
+First of all, prepare your `_data` folder with data required for training model and performing inference.
+Check out [input data formatting guide](docs/input_data.md).
+
+
 ### Train
 Prepare data at `_data` and run:
 ```python
