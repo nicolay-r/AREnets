@@ -4,6 +4,10 @@
 ![](https://img.shields.io/badge/Tensorflow-1.14-orange.svg)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nicolay-r/AREnets/blob/master/arenets_colab_tutorial.ipynb)
 
+<p align="center">
+    <img src="logo.png"/>
+</p>
+
 
 **AREnets** -- is an [OpenNRE](https://github.com/thunlp/OpenNRE) like project, but the kernel based on [tensorflow](https://www.tensorflow.org/)
 library, with implementation of neural networks on top of it, designed for **A**ttitude and **R**elation **E**xtraction tasks.
