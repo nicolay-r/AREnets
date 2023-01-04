@@ -21,8 +21,8 @@ train(input_data_dir=input_data_dir,
       modify_config_func=modify_config,
       callbacks=[
           TrainingLimiterCallback(train_acc_limit=1.0),
-          HiddenStatesWriterCallback(log_dir=join(input_data_dir, model_name.value, "hidden"), writer=NpzDataWriter()),
-          InputHiddenStatesWriterCallback(log_dir=join(input_data_dir, model_name.value, "hidden"), writer=NpzDataWriter())
+          # HiddenStatesWriterCallback(log_dir=join(input_data_dir, model_name.value, "hidden"), writer=NpzDataWriter()),
+          # InputHiddenStatesWriterCallback(log_dir=join(input_data_dir, model_name.value, "hidden"), writer=NpzDataWriter())
       ],
       unknown_term_index=0)
 
