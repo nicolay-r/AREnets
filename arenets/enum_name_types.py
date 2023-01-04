@@ -25,13 +25,13 @@ class ModelNames(Enum):
     IANSynonymEnds = 'ian-se'
     IANSynonymEndsAndFrames = 'ian-sef'
     PCNN = 'pcnn'
-    LSTM = 'rnn'
+    LSTM = 'lstm'
     RCNN = 'rcnn'
     RCNNAttPZhou = 'rcnn-att-p-zhou'
     RCNNAttZYang = 'rcnn-att-z-yang'
     AttFramesBiLSTM = 'att-frames-bilstm'
     AttSelfZYangBiLSTM = 'att-bilstm-z-yang'
-    AttSelfPZhouBiLSTM = 'att-bilstm'
+    AttSelfPZhouBiLSTM = 'att-bilstm-p-zhou'
 
 
 class ModelNamesService(object):
