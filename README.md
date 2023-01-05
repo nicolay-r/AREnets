@@ -21,7 +21,6 @@ core API, squeezed into a tiny
 * [Quick Start](#quick-start)
 * [Models List](#models-list)
 * [Test Details](#test-details)
-* [Related Frameworks](#related-frameworks)
 * [How to cite](#how-to-cite)
 
 ## Installation
@@ -131,10 +130,6 @@ This project has been tested under the following setup:
 * Python 3.6.9
 * [Pip freeze package list](docs/pip-freeze-list.txt)
 * Cuda compilation tools, release 10.0, V10.0.130
-
-## Related Frameworks
-
-*  **OpenNRE** [[github]](https://github.com/thunlp/OpenNRE) [[paper]](https://aclanthology.org/D19-3029.pdf)
 
 ## How to cite
 
