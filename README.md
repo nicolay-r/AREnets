@@ -19,10 +19,10 @@ core API, squeezed into a tiny
 ## Contents
 * [Installation](#installation)
 * [Quick Start](#quick-start)
-* [Input Features](#input-features)
 * [Models List](#models-list)
 * [Test Details](#test-details)
 * [Related Frameworks](#related-frameworks)
+* [Reference](#reference)
 
 ## Installation
 
@@ -45,20 +45,20 @@ First of all, prepare your `_data` folder with data required for training model 
 * **Input samples**: check out [input data formatting guide](docs/input_data.md).
 * **Embeddings** could be obtained from [NLPL repository](http://vectors.nlpl.eu/repository/), with `model.txt` file placed at `_data` folder.
 
+More on input features could be [found here](docs/input_features.md).
+
 ### Train
-Prepare data at `_data` and run:
 ```python
 from arenets.quickstart.train import train
 from arenets.enum_name_types import ModelNames
 
-train(input_data_dir="_data", labels_count=3, model_name=ModelNames.CNN, epochs_count=10, train_acc_limit=0.9)
+train(input_data_dir="_data", labels_count=3, model_name=ModelNames.CNN, epochs_count=10)
 ```
 Means run `cnn` model with `10` epochs and stop training for `3` class classification problem,
 up to moment once `train_acc_limit` won't be reached; 
 all the model-related details will be stored at `_data` model by default.
 
 ### Infer
-Use data at `_data` and run:
 ```python
 from arenets.quickstart.predict import predict
 from arenets.arekit.common.data_type import DataType
@@ -67,23 +67,6 @@ from arenets.enum_name_types import ModelNames
 predict(input_data_dir="_data", output_dir="_out", labels_count=3, model_name=ModelNames.CNN, data_type=DataType.Test)
 ```
 Means save results to `_out` folder for a model `cnn` located at `_data` by default.
-
-## Input features
-
-![](docs/pattern.png)
-
-Input embedding enlarged with the task specific features.
-[[code]](https://github.com/nicolay-r/AREnets/blob/05e53b7637f57a1ce534519f2440d6553150a686/arenets/sample.py#L16)
-[[list-of-files]](https://github.com/nicolay-r/AREnets/tree/dev/arenets/features)
-
-* Frame labels [[code]](arenets/features/term_frame_roles.py) -- connotations, for frames presented in context.
-* Distance-Feature [[code]](arenets/features/sample_dist.py):
-    * Distance from `Subject` to other context terms;
-    * Distance from `Object` to other context terms;
-    * Absolute distance to any `Subject` in context;
-    * Absolute distance to any `Object` in context;
-* Term-types [[code]](arenets/features/term_types.py)
-* Part-Of-Speech tags
 
 ## Models List
 
@@ -151,7 +134,7 @@ This project has been tested under the following setup:
 
 *  **OpenNRE** [[github]](https://github.com/thunlp/OpenNRE) [[paper]](https://aclanthology.org/D19-3029.pdf)
 
-## Referece
+## Reference
 
 ```
 @misc{arenets2023,
