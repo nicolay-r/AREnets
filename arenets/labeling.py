@@ -4,7 +4,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# TODO. Move this from AREkit to AREnets
 class LabeledCollection:
 
     def __init__(self, uint_labeled_ids):
