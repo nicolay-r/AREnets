@@ -15,6 +15,7 @@ class SingleInstanceNeuralNetwork(NeuralNetwork):
         self.__cfg = None
 
         self.__labels = None
+        self.__scaled_logits = None
 
         self.__term_emb = None
         self.__dist_emb = None
@@ -39,6 +40,10 @@ class SingleInstanceNeuralNetwork(NeuralNetwork):
     @property
     def Labels(self):
         return self.__labels
+
+    @property
+    def ScaledLogits(self):
+        return self.__scaled_logits
 
     @property
     def Accuracy(self):
@@ -161,10 +166,12 @@ class SingleInstanceNeuralNetwork(NeuralNetwork):
 
         # Get output for each sample
         output = tf.nn.softmax(logits_unscaled)
-        mean_output = tf.argmax(self.__to_mean_of_bag(output), axis=1)
+        scaled_logits = self.__to_mean_of_bag(output)
+        mean_output = tf.argmax(scaled_logits, axis=1)
 
         # Create labeling only for whole bags
         self.__labels = tf.cast(mean_output, tf.int32)
+        self.__scaled_logits = scaled_logits
 
         self.__cost = self.init_cost(logits_unscaled_dropped)
 
@@ -326,6 +333,7 @@ class SingleInstanceNeuralNetwork(NeuralNetwork):
 
         # Provide base input paramaters.
         yield 'y_labels', self.Labels
+        yield 'y_scaled_logits', self.ScaledLogits
         yield 'y_etalon_labels', self.__y
 
     # region static methods
