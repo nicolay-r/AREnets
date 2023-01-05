@@ -34,4 +34,5 @@ class TestThreeLabelScaler(SentimentLabelScaler):
         int_label = self.label_to_int(label)
         return self.int_to_label(-int_label)
 
-
+    def get_no_label_instance(self):
+        return self.int_to_label(0)
