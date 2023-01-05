@@ -55,11 +55,10 @@ from arenets.enum_name_types import ModelNames
 
 train(input_data_dir="_data", labels_count=3, model_name=ModelNames.CNN, epochs_count=10)
 ```
-Means run `cnn` model with `10` epochs and stop training for `3` class classification problem,
-up to moment once `train_acc_limit` won't be reached; 
+Runs `cnn` model with `10` epochs for `3-class` classification problem; 
 all the model-related details will be stored at `_data` model by default.
 
-### Infer
+### Predict 
 ```python
 from arenets.quickstart.predict import predict
 from arenets.arekit.common.data_type import DataType
@@ -67,7 +66,7 @@ from arenets.enum_name_types import ModelNames
 
 predict(input_data_dir="_data", output_dir="_out", labels_count=3, model_name=ModelNames.CNN, data_type=DataType.Test)
 ```
-Means save results to `_out` folder for a model `cnn` located at `_data` by default.
+Predict `test` results for pre-trained `cnn` model and saves them into `_out` folder
 
 ## Models List
 
