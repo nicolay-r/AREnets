@@ -41,6 +41,7 @@ We support `model.txt` format, which provides:
 * word and its vector in every row
 
 Embeddings could be obtained from [NLPL repository](http://vectors.nlpl.eu/repository/)
+* See how we do this in the following [downloading script](../tutorials/_data/download_embedding.sh)
 
 Text-based embeddings will be then converted into `vocab.txt` and `embedding.npz` matrix.
 [[see code implementation]](../arenets/emb_converter.py)

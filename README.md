@@ -43,7 +43,9 @@ The complete examples are in [tutorials](tutorials) folder.
 
 First of all, prepare your `_data` folder with data required for training model and performing inference.
 * **Input samples**: check out [input data formatting guide](docs/input_data.md).
-* **Embeddings** could be obtained from [NLPL repository](http://vectors.nlpl.eu/repository/), with `model.txt` file placed at `_data` folder.
+* **Embeddings** could be obtained from [NLPL repository](http://vectors.nlpl.eu/repository/), 
+  with `model.txt` file placed at `_data` folder; 
+    * See [downloading script](tutorials/_data/download_embedding.sh);
 
 More on input features could be [found here](docs/input_features.md).
 
