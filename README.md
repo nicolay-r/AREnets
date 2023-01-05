@@ -22,7 +22,7 @@ core API, squeezed into a tiny
 * [Models List](#models-list)
 * [Test Details](#test-details)
 * [Related Frameworks](#related-frameworks)
-* [Reference](#reference)
+* [How to cite](#how-to-cite)
 
 ## Installation
 
@@ -136,8 +136,11 @@ This project has been tested under the following setup:
 
 *  **OpenNRE** [[github]](https://github.com/thunlp/OpenNRE) [[paper]](https://aclanthology.org/D19-3029.pdf)
 
-## Reference
+## How to cite
 
+Our one and my personal interest is to help you better explore and analyze attitude and relation extraction related tasks with AREnets.
+A great research is also accompanied with the faithful reference.
+if you use or extend our work, please cite as follows:
 ```
 @misc{arenets2023,
   author={Nicolay Rusnachenko},
