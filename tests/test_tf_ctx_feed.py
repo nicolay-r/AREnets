@@ -62,7 +62,7 @@ class TestContextNetworkFeeding(unittest.TestCase):
                     pos_items_count=pos_items_count)
 
         # Init network.
-        network.compile(config=network_config, reset_graph=True, graph_seed=42)
+        network.compile(config=network_config, reset_graph=True, graph_seed=42, eager=False)
         minibatch = create_minibatch_func(config=network_config, labels_scaler=labels_scaler)
 
         network_optimiser = network_config.Optimiser.minimize(network.Cost)
