@@ -11,6 +11,9 @@
 
 **AREnets** -- is an [OpenNRE](https://github.com/thunlp/OpenNRE) like project, but the kernel based on [tensorflow](https://www.tensorflow.org/)
 library, with implementation of neural networks on top of it, designed for **A**ttitude and **R**elation **E**xtraction tasks.
+AREnets is a result of advances in [Sentiment Attitude Extraction task](http://nlpprogress.com/russian/sentiment-analysis.html)
+but introduced in generalized form and applicable for other relation-extraction related classification tasks. 
+It provides ready to use [neural networks](#models-list) and API for `subject`→`object` pairs classification in a given samples. 
 This project is powered by 
 [AREkit](https://github.com/nicolay-r/AREkit) 
 core API, squeezed into a tiny 
