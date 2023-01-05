@@ -12,7 +12,8 @@ Sample contain the following mandatory parameters:
 * `id` (type:`uint`) -- sample identifier
     * **NOTE**: it is important to follow the template `_o[NUMBER]_i[NUMBER]_`, 
       where `[NUMBER]`is `uint` value, with `_o` related to opinion, and `_i` related to index of this opinion **for grouping**;
-      (see `BaseIDProvider` for a greater details); if you do not want to group opinions, use `_i0`
+      (see `BaseIDProvider` or [issue #43](https://github.com/nicolay-r/AREnets/issues/43)); 
+      if you do not want to group opinions, use `_i0`
 * `label` (type: `int`) -- for training only; 
     * value in range `[0, c]`, where `c` corresponds to classes count.
 * `text` (type: `str` or `list`) -- string of terms, separated by ` ` (whitespace), or list of terms in case of `jsonl` fomat;
