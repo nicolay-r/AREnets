@@ -21,8 +21,6 @@ Sample contain the following mandatory parameters:
 * `t_ind` (type: `int`) -- index of the **target** term in `text` string/list;
 
 Optional parameters:  
-* `doc_id` -- document identifier;
-* `sent_id` -- sentence identifier in the related document;
 * `entity_values` (type: `str`) -- values of the entities in the order of their appearance in text, if the latter has been annotated 
   (required in case when text entities masked);
 * `entity_types` (type: `str`) -- comma separated types of the entities in the order of their appearance in text, if the latter has been annotated
