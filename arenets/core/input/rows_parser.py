@@ -33,8 +33,6 @@ parse_value = {
     const.ID: lambda value: value,
     const.S_IND: lambda value: int(value),
     const.T_IND: lambda value: int(value),
-    const.ENTITY_VALUES: lambda value: __process_values_list(value),
-    const.ENTITY_TYPES: lambda value: __process_values_list(value),
     const.ENTITIES: lambda value: __process_indices_list(value),
     network_input_const.FrameVariantIndices: lambda value:
         __process_indices_list(value) if isinstance(value, str) else empty_list,

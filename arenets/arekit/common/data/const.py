@@ -10,6 +10,4 @@ S_IND = 's_ind'
 T_IND = 't_ind'
 
 # Entity parameters
-ENTITY_VALUES = 'entity_values'
-ENTITY_TYPES = 'entity_types'
 ENTITIES = 'entities'
