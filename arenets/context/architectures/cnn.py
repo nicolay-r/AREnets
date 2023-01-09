@@ -50,6 +50,8 @@ class VanillaCNN(SingleInstanceNeuralNetwork):
                                 data_format="NHWC",
                                 name="C")
 
+        bwc_conv = self.convolved_transformation_optional(bwc_conv)
+
         bwgc_conv = tf.reshape(bwc_conv, [self.Config.BatchSize,
                                           1,
                                           self.Config.TermsPerContext,
@@ -68,6 +70,9 @@ class VanillaCNN(SingleInstanceNeuralNetwork):
         g = tf.reshape(bc_mpool, [self.Config.BatchSize, self.Config.FiltersCount])
 
         return g
+
+    def convolved_transformation_optional(self, value):
+        return value
 
     def init_logits_unscaled(self, context_embedding):
         W = [tensor for var_name, tensor in self.__hidden.items() if 'W' in var_name]

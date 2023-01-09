@@ -4,6 +4,7 @@ from enum import Enum
 class ModelNames(Enum):
 
     CNN = 'cnn'
+    CNNAttSelfPZhou = 'cnn-self-att-pzhou'
     AttEndsCNN = 'att-cnn'
     AttEndsAndFramesCNN = 'att-ef-cnn'
     AttSynonymEndsCNN = 'att-se-cnn'
