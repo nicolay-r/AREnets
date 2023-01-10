@@ -28,6 +28,6 @@ class AttentionSelfRCNN(RCNN):
         self.__att_alphas = self.get_attention_alphas(rnn_outputs)
 
         output_fw_w = output_fw * tf.expand_dims(self.__att_alphas, -1)
-        output_bw_w = output_fw * tf.expand_dims(self.__att_alphas, -1)
+        output_bw_w = output_bw * tf.expand_dims(self.__att_alphas, -1)
 
         return output_fw_w, output_bw_w
