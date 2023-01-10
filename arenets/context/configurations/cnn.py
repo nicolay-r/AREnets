@@ -37,3 +37,15 @@ class CNNConfig(DefaultNetworkConfig):
         return parameters
 
     # endregion
+
+    def set_filters_count(self, value):
+        assert(isinstance(value, int) and value > 0)
+        self.__filters_count = value
+
+    def set_window_size(self, value):
+        assert(isinstance(value, int) and value > 0)
+        self.__window_size = value
+
+    def set_hidden_size(self, value):
+        assert(isinstance(value, int) and value > 0)
+        self.__hidden_size = value
