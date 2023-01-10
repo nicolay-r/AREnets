@@ -10,7 +10,7 @@ class RCNNConfig(RNNConfig):
     def __init__(self):
         super(RCNNConfig, self).__init__()
         super(RCNNConfig, self).modify_hidden_size(128)
-        super(RCNNConfig, self).modify_cell_type(CellTypes.BasicLSTM)
+        super(RCNNConfig, self).modify_cell_type(CellTypes.LSTM)
         super(RCNNConfig, self).modify_dropout_rnn_keep_prob(0.8)
 
     # region properties

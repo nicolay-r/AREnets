@@ -6,7 +6,7 @@ from arenets.tf_helpers.cell_types import CellTypes
 class RNNConfig(DefaultNetworkConfig):
 
     __hidden_size = 300
-    __cell_type = CellTypes.BasicLSTM
+    __cell_type = CellTypes.LSTM
     __dropout_rnn_keep_prob = 0.8
 
     def __init__(self):
