@@ -5,6 +5,7 @@ class ModelNames(Enum):
 
     CNN = 'cnn'
     CNNAttSelfPZhou = 'cnn-self-att-pzhou'
+    CNNAttSelfZYang = 'cnn-self-att-zyang'
     AttEndsCNN = 'att-cnn'
     AttEndsAndFramesCNN = 'att-ef-cnn'
     AttSynonymEndsCNN = 'att-se-cnn'

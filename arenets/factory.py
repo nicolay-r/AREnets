@@ -4,6 +4,7 @@ from arenets.context.architectures.att_self_p_zhou_bilstm import AttentionSelfPZ
 from arenets.context.architectures.att_self_p_zhou_cnn import AttentionSelfPZhouCNN
 from arenets.context.architectures.att_self_p_zhou_rcnn import AttentionSelfPZhouRCNN
 from arenets.context.architectures.att_self_z_yang_bilstm import AttentionSelfZYangBiLSTM
+from arenets.context.architectures.att_self_z_yang_cnn import AttentionSelfZYangCNN
 from arenets.context.architectures.att_self_z_yang_rcnn import AttentionSelfZYangRCNN
 from arenets.context.architectures.bilstm import BiLSTM
 from arenets.context.architectures.cnn import VanillaCNN
@@ -17,6 +18,7 @@ from arenets.context.configurations.att_ends_pcnn import AttentionEndsPCNNConfig
 from arenets.context.configurations.att_self_p_zhou_bilstm import AttentionSelfPZhouBiLSTMConfig
 from arenets.context.configurations.att_self_p_zhou_cnn import AttentionSelfPZhouCNNConfig
 from arenets.context.configurations.att_self_z_yang_bilstm import AttentionSelfZYangBiLSTMConfig
+from arenets.context.configurations.att_self_z_yang_cnn import AttentionSelfZYangCNNConfig
 from arenets.context.configurations.bilstm import BiLSTMConfig
 from arenets.context.configurations.cnn import CNNConfig
 from arenets.context.configurations.ian_ends import IANEndsBasedConfig
@@ -75,6 +77,8 @@ def __get_network_with_config_types(model_name):
         return VanillaCNN, CNNConfig
     if model_name == ModelNames.CNNAttSelfPZhou:
         return AttentionSelfPZhouCNN, AttentionSelfPZhouCNNConfig
+    if model_name == ModelNames.CNNAttSelfZYang:
+        return AttentionSelfZYangCNN, AttentionSelfZYangCNNConfig
     if model_name == ModelNames.LSTM:
         return RNN, RNNConfig
     if model_name == ModelNames.PCNN:
