@@ -11,3 +11,9 @@ class AttentionSelfZYangRCNNConfig(RCNNConfig):
     @property
     def AttentionSize(self):
         return self.__attention_size
+
+    def modify_terms_per_context(self, value):
+        """ We make attention parameter dependent on the input terms count parameter.
+        """
+        super(AttentionSelfZYangRCNNConfig, self).modify_terms_per_context(value)
+        self.__attention_size = value
