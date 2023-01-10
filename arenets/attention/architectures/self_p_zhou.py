@@ -11,7 +11,8 @@ def self_attention_by_peng_zhou(inputs):
     Code: https://github.com/SeoSangwoo/Attention-Based-BiLSTM-relation-extraction
 
     inputs: Tensor
-        tensor of shape
+        tensor of shape (B, T, D), where
+            B -- batch, T -- time-series (context terms), D -- data or hidden embedding.
     """
     assert(isinstance(inputs, tf.Tensor))
 
@@ -28,10 +29,24 @@ def self_attention_by_peng_zhou(inputs):
     vu = tf.tensordot(v, u_omega, axes=1, name='vu')  # (B,T) shape
     alphas = tf.nn.softmax(vu, name='alphas')  # (B,T) shape
 
+    return alphas
+
+
+def calculate_sequential_attentive_weights_by_peng_zhou(inputs, alphas):
+    """ Authors: Peng Zhou, Wei Shi, Jun Tian, Zhenyu Qi, Bingchen Li, Hongwei Hao, Bo Xu
+        Paper: https://www.aclweb.org/anthology/P16-2034
+        Proposes to reduce the time-series parameter
+        inputs: Tensor
+            tensor of shape (B, T, D), where
+                B -- batch, T -- time-series (context terms), D -- data or hidden embedding.
+        alphas: Tensor
+            tensor of shape (B, T), which corresponds to weights of the particular time-series item>
+    """
+
     # Output of (Bi-)RNN is reduced with attention vector; the result has (B,D) shape
     output = tf.reduce_sum(inputs * tf.expand_dims(alphas, -1), 1)
 
     # Final output with tanh
     output = tf.tanh(output)
 
-    return output, alphas
+    return output

@@ -11,5 +11,4 @@ class AttentionSelfPZhouCNN(SelfAttentionCNN):
     """
 
     def get_attention_alphas(self, input_data):
-        _, alphas = self_attention_by_peng_zhou(input_data)
-        return alphas
+        return self_attention_by_peng_zhou(input_data)

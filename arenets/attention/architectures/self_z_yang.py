@@ -7,7 +7,7 @@ code: https://github.com/ilivans/tf-rnn-attention
 import tensorflow as tf
 
 
-def self_attention_by_z_yang(inputs, attention_size, time_major=False, return_alphas=False):
+def self_attention_by_z_yang(inputs, attention_size, time_major=False):
     """
     Attention mechanism layer which reduces RNN/Bi-RNN outputs with Attention vector.
     The idea was proposed in the article by Z. Yang et al., "Hierarchical Attention Networks
@@ -42,14 +42,9 @@ def self_attention_by_z_yang(inputs, attention_size, time_major=False, return_al
             transposes at the beginning and end of the RNN calculation.  However,
             most TensorFlow data is batch-major, so by default this function
             accepts input and emits output in batch-major form.
-        return_alphas: Whether to return attention coefficients variable along with layer's output.
-            Used for visualization purpose.
     Returns:
-        The Attention output `Tensor`.
-        In case of RNN, this will be a `Tensor` shaped:
-            `[batch_size, cell.output_size]`.
-        In case of Bidirectional RNN, this will be a `Tensor` shaped:
-            `[batch_size, cell_fw.output_size + cell_bw.output_size]`.
+        alphas: Tensor
+            tensor of shape (B, T), which corresponds to weights of the particular time-series item.
     """
 
     if isinstance(inputs, tuple):
@@ -78,10 +73,24 @@ def self_attention_by_z_yang(inputs, attention_size, time_major=False, return_al
     vu = tf.tensordot(v, u_omega, axes=1, name='vu')  # (B,T) shape
     alphas = tf.nn.softmax(vu, name='alphas')  # (B,T) shape
 
+    return alphas
+
+
+def calculate_sequential_attentive_weights_by_z_yang(inputs, alphas):
+    """Attention mechanism layer which reduces RNN/Bi-RNN outputs with Attention vector.
+       The idea was proposed in the article by Z. Yang et al., "Hierarchical Attention Networks
+       for Document Classification", 2016: http://www.aclweb.org/anthology/N16-1174.
+       Variables notation is also inherited from the article
+
+        Proposes to reduce the time-series parameter
+        inputs: Tensor
+            tensor of shape (B, T, D), where
+                B -- batch, T -- time-series (context terms), D -- data or hidden embedding.
+        alphas: Tensor
+            tensor of shape (B, T), which corresponds to weights of the particular time-series item.
+    """
+
     # Output of (Bi-)RNN is reduced with attention vector; the result has (B,D) shape
     output = tf.reduce_sum(inputs * tf.expand_dims(alphas, -1), 1)
 
-    if not return_alphas:
-        return output
-    else:
-        return output, alphas
+    return output

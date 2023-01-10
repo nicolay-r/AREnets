@@ -5,5 +5,5 @@ from arenets.context.architectures.att_self_rcnn import AttentionSelfRCNN
 class AttentionSelfZYangRCNN(AttentionSelfRCNN):
 
     def get_attention_alphas(self, rnn_outputs):
-        _, alphas = self_attention_by_z_yang(rnn_outputs, 100, return_alphas=True)
+        alphas = self_attention_by_z_yang(inputs=rnn_outputs, attention_size=self.Config.AttentionSize)
         return alphas

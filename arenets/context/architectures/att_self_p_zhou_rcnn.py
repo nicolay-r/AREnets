@@ -5,5 +5,4 @@ from arenets.context.architectures.att_self_rcnn import AttentionSelfRCNN
 class AttentionSelfPZhouRCNN(AttentionSelfRCNN):
 
     def get_attention_alphas(self, rnn_outputs):
-        _, alphas = self_attention_by_peng_zhou(rnn_outputs)
-        return alphas
+        return self_attention_by_peng_zhou(rnn_outputs)
