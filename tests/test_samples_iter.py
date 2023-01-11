@@ -10,8 +10,7 @@ from arenets.core.input.rows_parser import ParsedSampleRow
 from arenets.context.configurations.base.base import DefaultNetworkConfig
 from arenets.sample import InputSample
 from arenets.shapes import NetworkInputShapes
-
-from tests.readers.pandas_csv_reader import PandasCsvReader
+from arenets.external.readers.pandas_csv_reader import PandasCsvReader
 
 
 class TestSamplesIteration(unittest.TestCase):

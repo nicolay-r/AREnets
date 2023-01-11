@@ -2,8 +2,6 @@ import collections
 import logging
 from os.path import exists
 
-from arenets.arekit.common.data_type import DataType
-
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 

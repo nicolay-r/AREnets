@@ -3,7 +3,7 @@ from os.path import join, dirname
 
 from arenets.arekit.common.data.row_ids.base import BaseIDProvider
 from arenets.arekit.common.data.views.samples import LinkedSamplesStorageView
-from tests.readers.pandas_csv_reader import PandasCsvReader
+from arenets.external.readers.pandas_csv_reader import PandasCsvReader
 
 
 class TestSamplesStorageView(unittest.TestCase):
