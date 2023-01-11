@@ -1,7 +1,7 @@
 import pandas as pd
 
 from arenets.arekit.common.data.input.reader import BaseReader
-from tests.readers.pandas_storage import PandasBasedRowsStorage
+from arenets.external.readers.pandas_storage import PandasBasedRowsStorage
 
 
 class PandasCsvReader(BaseReader):
