@@ -15,7 +15,7 @@ def get_requirements(filenames):
 
 setup(
     name='arenets',
-    version='0.23.0',
+    version='0.23.1',
     description='Tensorflow-based framework which lists implementation of conventional neural '
                 'network models (CNN, RNN-based) for Relation Extraction classification tasks '
                 'as well as API for custom model implementation',
