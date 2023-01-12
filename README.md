@@ -23,6 +23,7 @@ core API, squeezed into a tiny
 * [Installation](#installation)
 * [Quick Start](#quick-start)
 * [Models List](#models-list)
+* [FAQ](#faq)
 * [Test Details](#test-details)
 * [How to cite](#how-to-cite)
 
@@ -124,6 +125,11 @@ Predict `test` results for pre-trained `cnn` model and saves them into `_out` fo
         [[paper]](https://pdfs.semanticscholar.org/8731/369a707046f3f8dd463d1fd107de31d40a24.pdf);
     - Single MLP
         [[code]](arenets/multi/architectures/base/base_single_mlp.py);
+      
+## FAQ
+
+#### [How to prepare input data?](docs/input_data.md)
+#### [How to implement a custom model with attention?](docs/tutorial_attention.md)
 
 ## Test Details
 
