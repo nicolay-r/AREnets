@@ -10,17 +10,14 @@ Every sample contains text and mentioned **opinion** in it, i.e. `source->target
 
 Sample contain the following mandatory parameters:
 * `id` (type:`uint`) -- sample identifier
-    * **NOTE**: it is important to follow the template `_o[NUMBER]_i[NUMBER]_`, 
-      where `[NUMBER]`is `uint` value, with `_o` related to opinion, and `_i` related to index of this opinion **for grouping**;
-      (see `BaseIDProvider` or [issue #43](https://github.com/nicolay-r/AREnets/issues/43)); 
-      if you do not want to group opinions, use `_i0`
-* `label` (type: `int`) -- for training only; 
-    * value in range `[0, c]`, where `c` corresponds to classes count.
+* `label` (type: `int`) -- for training only, denotes a class; 
+    * value in range `[0, c]`, where `c` corresponds to classes amount.
 * `text` (type: `str` or `list`) -- string of terms, separated by ` ` (whitespace), or list of terms in case of `jsonl` fomat;
 * `s_ind` (type: `int`) -- index of the **source** term in `text` string/list;
 * `t_ind` (type: `int`) -- index of the **target** term in `text` string/list;
 
 Optional parameters:  
+* `opinion_id` (type: `uint`) -- used for grouping opinions, denoting index in group;
 * `entities` (type: `str`) -- comma separated term indices which corresponds to entities, in order of their appearance in text
 * `frames` (type: `str`) -- comma separated term indices which corresponds to connotation frames, in order of their appearance in text; 
   important for sentiment-classification related tasks;

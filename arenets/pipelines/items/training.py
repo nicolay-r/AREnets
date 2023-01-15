@@ -2,7 +2,6 @@ import gc
 import logging
 import os
 
-from arenets.arekit.common.data.row_ids.base import BaseIDProvider
 from arenets.arekit.common.data.views.samples import LinkedSamplesStorageView
 from arenets.arekit.common.data_type import DataType
 from arenets.arekit.common.pipeline.context import PipelineContext
@@ -106,7 +105,7 @@ class NetworksTrainingPipelineItem(BasePipelineItem):
         inference_ctx.initialize(
             dtypes=iter(supported_data_types),
             load_target_func=lambda dtype: self.__samples_io.create_target(data_type=dtype),
-            samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
+            samples_view=LinkedSamplesStorageView(),
             samples_reader=self.__samples_io.Reader,
             is_external_vocab=not self.__model_io.IsPretrainedStateProvided,
             labels_count=self.__labels_count,

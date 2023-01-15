@@ -1,5 +1,6 @@
 ID = 'id'
 LABEL = 'label'
+OPINION_INDEX = 'opinion_id'
 
 # Corresponds to fields with attitude ends. (values, STRING)
 SOURCE = 'source'

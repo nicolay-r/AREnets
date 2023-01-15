@@ -1,6 +1,5 @@
 from os.path import join
 
-from arenets.arekit.common.data.row_ids.base import BaseIDProvider
 from arenets.arekit.common.data.views.samples import LinkedSamplesStorageView
 from arenets.arekit.common.data_type import DataType
 from arenets.arekit.common.experiment.api.base_samples_io import BaseSamplesIO
@@ -100,7 +99,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
             bags_collection_type=self.__bags_collection_type,
             load_target_func=lambda data_type: samples_io.create_target(data_type=data_type),
             samples_reader=samples_io.Reader,
-            samples_view=LinkedSamplesStorageView(row_ids_provider=BaseIDProvider()),
+            samples_view=LinkedSamplesStorageView(),
             is_external_vocab=True,
             terms_vocab=terms_vocab,
             unknown_term_index=unknown_term_index,
