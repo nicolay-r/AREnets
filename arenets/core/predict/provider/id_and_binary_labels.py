@@ -1,9 +1,15 @@
 import collections
 
 from arenets.arekit.common.data import const
+from arenets.core.predict.provider.base import BasePredictProvider
 
 
-class BasePredictProvider(object):
+class IdAndBinaryLabelsPredictProvider(BasePredictProvider):
+    """ This is a default output provider which returns t
+        the row identifier and labels in a form of the one-hot
+        vector, in which all values are zeros instead of the
+        i-th -- the related class.
+    """
 
     @staticmethod
     def __iter_contents(sample_id_with_uint_labels_iter, labels_count, column_extra_funcs):
@@ -12,9 +18,6 @@ class BasePredictProvider(object):
         for sample_id, uint_label in sample_id_with_uint_labels_iter:
             assert(isinstance(uint_label, int))
 
-            labels = ['0'] * labels_count
-            labels[uint_label] = '1'
-
             # Composing row contents.
             contents = [sample_id]
 
@@ -22,6 +25,10 @@ class BasePredictProvider(object):
             if column_extra_funcs is not None:
                 for _, value_func in column_extra_funcs:
                     contents.append(str(value_func(sample_id)))
+
+            # Composing labels.
+            labels = ['0'] * labels_count
+            labels[uint_label] = '1'
 
             # Providing row labels.
             contents.extend(labels)

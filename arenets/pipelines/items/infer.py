@@ -16,6 +16,7 @@ from arenets.core.pipeline.item_keep_hidden import MinibatchHiddenFetcherPipelin
 from arenets.core.pipeline.item_predict import EpochLabelsPredictorPipelineItem
 from arenets.core.pipeline.item_predict_labeling import EpochLabelsCollectorPipelineItem
 from arenets.core.predict.base_writer import BasePredictWriter
+from arenets.core.predict.provider.base import BasePredictProvider
 from arenets.factory import create_network_and_network_config_funcs
 from arenets.shapes import NetworkInputShapes
 
@@ -24,11 +25,12 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
 
     def __init__(self, model_name, bags_collection_type, model_input_type, predict_writer,
                  data_type, bag_size, bags_per_minibatch, nn_io, labels_count, callbacks,
-                 modify_config_func=None, part_of_speech_types_count=100):
+                 predict_provider, modify_config_func=None, part_of_speech_types_count=100):
         assert(isinstance(callbacks, list))
         assert(isinstance(bag_size, int))
-        assert(isinstance(predict_writer, BasePredictWriter))
         assert(isinstance(data_type, DataType))
+        assert(isinstance(predict_writer, BasePredictWriter))
+        assert(isinstance(predict_provider, BasePredictProvider))
         assert(callable(modify_config_func) or modify_config_func is None)
 
         # Create network an configuration.
@@ -58,7 +60,9 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
             bags_collection_type=bags_collection_type)
 
         self.__callbacks = callbacks + [
-            PredictResultWriterCallback(labels_count=labels_count, writer=predict_writer)
+            PredictResultWriterCallback(labels_count=labels_count,
+                                        predict_provider=predict_provider,
+                                        writer=predict_writer)
         ]
 
         self.__writer = predict_writer
