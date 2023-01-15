@@ -9,8 +9,8 @@ from arenets.core.callback.hidden import HiddenStatesWriterCallback
 from arenets.core.callback.hidden_input import InputHiddenStatesWriterCallback
 from arenets.core.feeding.bags.collection.single import SingleBagsCollection
 from arenets.core.model_io import TensorflowNeuralNetworkModelIO
-from arenets.core.predict.tsv_writer import TsvPredictWriter
 from arenets.core.predict.provider.id_and_binary_labels import IdAndBinaryLabelsPredictProvider
+from arenets.core.writer.csv_writer import CsvContentWriter
 from arenets.emb_converter import convert_text_embedding_if_needed
 from arenets.enum_input_types import ModelInputType
 from arenets.enum_name_types import ModelNames
@@ -29,6 +29,7 @@ def predict(input_data_dir, output_dir, labels_count,
             bags_per_minibatch=32,
             reader=JsonlReader(),
             predict_provider=IdAndBinaryLabelsPredictProvider(),
+            predict_writer=CsvContentWriter(),
             model_name=ModelNames.CNN,
             data_type=DataType.Test,
             word2vec_txt_model_name="model.txt",
@@ -44,15 +45,17 @@ def predict(input_data_dir, output_dir, labels_count,
         modify_config_func: func of None
             allows to declare and provide your function which modifies the contents of the config.
         word2vec_txt_model_name: str
-            this is a filename that declares word2vec model, saved as a text file, incuding vocabulary
+            this is a filename that declares word2vec model, saved as a text file, including vocabulary
             and vectors for every term in particular.
         hstates_dir: str
             Where to keep hidden states during the model process training.
         bags_collection_type: enum
             How data is presented; for singe instance it denotes we deal with sequence of bags, while
             for multi-instance type, every bag contains a list of bags.
-        predict_provider:
+        predict_provider: BasePredictProvider
             rows provider involving labels suppose to be written.
+        predict_writer: BasePredictWriter
+            class which performs and accomplish output serialization (writing), following the particular format.
     """
     assert(isinstance(input_data_dir, str))
     assert(isinstance(output_dir, str))
@@ -90,7 +93,7 @@ def predict(input_data_dir, output_dir, labels_count,
             model_name=model_name,
             bags_collection_type=bags_collection_type,
             model_input_type=model_input_type,
-            predict_writer=TsvPredictWriter(),
+            predict_writer=predict_writer,
             callbacks=callbacks,
             modify_config_func=modify_config_func,
             labels_count=labels_count,

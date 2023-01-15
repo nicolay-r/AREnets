@@ -15,8 +15,8 @@ from arenets.core.pipeline.item_fit import MinibatchFittingPipelineItem
 from arenets.core.pipeline.item_keep_hidden import MinibatchHiddenFetcherPipelineItem
 from arenets.core.pipeline.item_predict import EpochLabelsPredictorPipelineItem
 from arenets.core.pipeline.item_predict_labeling import EpochLabelsCollectorPipelineItem
-from arenets.core.predict.base_writer import BasePredictWriter
 from arenets.core.predict.provider.base import BasePredictProvider
+from arenets.core.writer.base_writer import BaseIterativeWriter
 from arenets.factory import create_network_and_network_config_funcs
 from arenets.shapes import NetworkInputShapes
 
@@ -29,7 +29,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
         assert(isinstance(callbacks, list))
         assert(isinstance(bag_size, int))
         assert(isinstance(data_type, DataType))
-        assert(isinstance(predict_writer, BasePredictWriter))
+        assert(isinstance(predict_writer, BaseIterativeWriter))
         assert(isinstance(predict_provider, BasePredictProvider))
         assert(callable(modify_config_func) or modify_config_func is None)
 

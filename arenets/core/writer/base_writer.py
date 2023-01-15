@@ -1,4 +1,4 @@
-class BasePredictWriter(object):
+class BaseIterativeWriter(object):
 
     def __init__(self):
         self._target = None

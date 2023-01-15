@@ -2,9 +2,9 @@ import logging
 
 from arenets.core.callback.base import NetworkCallback
 from arenets.core.pipeline.item_predict_labeling import EpochLabelsCollectorPipelineItem
-from arenets.core.predict.base_writer import BasePredictWriter
 from arenets.core.predict.provider.base import BasePredictProvider
 from arenets.core.utils import get_item_from_pipeline
+from arenets.core.writer.base_writer import BaseIterativeWriter
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +13,7 @@ class PredictResultWriterCallback(NetworkCallback):
 
     def __init__(self, labels_count, predict_provider, writer):
         assert(isinstance(predict_provider, BasePredictProvider))
-        assert(isinstance(writer, BasePredictWriter))
+        assert(isinstance(writer, BaseIterativeWriter))
         self.__labels_count = labels_count
         self.__predict_provider = predict_provider
         self.__writer = writer
