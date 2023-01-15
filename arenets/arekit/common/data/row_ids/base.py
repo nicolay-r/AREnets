@@ -17,17 +17,6 @@ class BaseIDProvider(object):
 
     SEPARATOR = '_'
     OPINION = "o{}" + SEPARATOR
-    INDEX = "i{}" + SEPARATOR
-
-    # region 'create' methods
-
-    @staticmethod
-    def create_pattern(id_value, p_type):
-        assert(isinstance(id_value, int))
-        assert(isinstance(p_type, str))
-        return p_type.format(id_value)
-
-    # endregion
 
     # region 'parse' methods
 
