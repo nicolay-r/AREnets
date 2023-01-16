@@ -11,8 +11,12 @@ class LinkedSamplesStorageView(object):
         linked = []
         current_opinion_id = undefined
 
-        for _, row_dict in storage:
-            opinion_id = 0 if const.OPINION_INDEX not in row_dict else row_dict[const.OPINION_INDEX]
+        for row_index, row_dict in storage:
+
+            # We consider that every row is unique, so we do not have linked opinions
+            # in case of the absence of OPINION_INDEX parameter.
+            opinion_id = row_index if const.OPINION_INDEX not in row_dict else row_dict[const.OPINION_INDEX]
+
             if current_opinion_id != undefined:
                 if opinion_id != current_opinion_id:
                     yield linked
