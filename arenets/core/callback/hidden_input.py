@@ -27,6 +27,7 @@ class InputHiddenStatesWriterCallback(NetworkCallback):
         id_and_value_pairs = list(predict_log.iter_by_parameter_values(var_name))
         id_and_value_pairs = sorted(id_and_value_pairs, key=lambda pair: pair[0])
         self.__writer.write(target=target, data=[pair[1] for pair in id_and_value_pairs])
+        self.__writer.write(target=target+".ids", data=[pair[0] for pair in id_and_value_pairs])
 
     def __write(self, pipeline, epoch_index=None):
         pipeline_item = get_item_from_pipeline(pipeline=pipeline,
