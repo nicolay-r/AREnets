@@ -6,9 +6,10 @@ from arenets.external.readers.pandas_storage import PandasBasedRowsStorage
 
 class PandasCsvReader(BaseReader):
     """ Represents a CSV-based reader, implemented via pandas API.
+        We test this under: pandas==0.25.3
     """
 
-    def __init__(self, sep='\t', header='infer', compression='gzip', encoding='utf-8', col_types=None):
+    def __init__(self, sep='\t', header='infer', compression='infer', encoding='utf-8', col_types=None):
         self.__sep = sep
         self.__compression = compression
         self.__encoding = encoding

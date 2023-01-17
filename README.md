@@ -135,9 +135,10 @@ Predict `test` results for pre-trained `cnn` model and saves them into `_out` fo
 
 This project has been tested under the following setup:
 * NVidia GTX-1060/1080 TI
+* CUDA compilation tools, release 10.0, V10.0.130
 * Python 3.6.9
+* Pandas 0.25.3 (Optional, only for `CSV` reading)
 * [Pip freeze package list](docs/pip-freeze-list.txt)
-* Cuda compilation tools, release 10.0, V10.0.130
 
 ## How to cite
 
