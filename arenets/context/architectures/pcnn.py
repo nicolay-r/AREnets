@@ -43,10 +43,10 @@ class PiecewiseCNN(VanillaCNN):
         sliced = tf.squeeze(sliced.concat())
 
         # Max Pooling
-        bwgc_mpool = tf.nn.max_pool(
-                sliced,
-                [1, 1, self.Config.TermsPerContext, 1],
-                [1, 1, self.Config.TermsPerContext, 1],
+        bwgc_mpool = tf.nn.max_pool2d(
+                value=sliced,
+                ksize=[1, 1, self.Config.TermsPerContext, 1],
+                strides=[1, 1, self.Config.TermsPerContext, 1],
                 padding='VALID',
                 data_format="NHWC")
 

@@ -58,10 +58,10 @@ class VanillaCNN(SingleInstanceNeuralNetwork):
                                           self.Config.FiltersCount])
 
         # Max Pooling
-        bwgc_mpool = tf.nn.max_pool(
-                bwgc_conv,
-                [1, 1, self.Config.TermsPerContext, 1],
-                [1, 1, self.Config.TermsPerContext, 1],
+        bwgc_mpool = tf.nn.max_pool2d(
+                value=bwgc_conv,
+                ksize=[1, 1, self.Config.TermsPerContext, 1],
+                strides=[1, 1, self.Config.TermsPerContext, 1],
                 padding='VALID',
                 data_format="NHWC")
 
