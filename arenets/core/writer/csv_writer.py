@@ -8,12 +8,12 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-class CsvContentWriter(BaseIterativeWriter):
+class CsvGzipContentWriter(BaseIterativeWriter):
     """ This writer saves information in a CSV-based format.
     """
 
     def __init__(self, separator='\t', write_title=True):
-        super(CsvContentWriter, self).__init__()
+        super(CsvGzipContentWriter, self).__init__()
         self.__col_separator = separator
         self.__write_title = write_title
         self.__f = None
