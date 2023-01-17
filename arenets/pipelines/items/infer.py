@@ -82,7 +82,7 @@ class TensorflowNetworkInferencePipelineItem(BasePipelineItem):
 
         # Setup predicted result writer.
         full_model_name = pipeline_ctx.provide_or_none("full_model_name")
-        tgt = join(predict_root, "predict-{fmn}-{dtype}.tsv.gz".format(
+        tgt = join(predict_root, "predict-{fmn}-{dtype}.csv".format(
             fmn=full_model_name, dtype=str(self.__data_type).lower().split('.')[-1]))
 
         # Fetch other required in further information from input_data.

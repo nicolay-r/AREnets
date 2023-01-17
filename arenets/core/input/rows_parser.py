@@ -84,11 +84,11 @@ class ParsedSampleRow(object):
 
     @property
     def SubjectIndex(self):
-        return self.__params[const.S_IND]
+        return self.__value_or_none(const.S_IND)
 
     @property
     def ObjectIndex(self):
-        return self.__params[const.T_IND]
+        return self.__value_or_none(const.T_IND)
 
     @property
     def UintLabel(self):

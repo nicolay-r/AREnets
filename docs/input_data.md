@@ -13,10 +13,10 @@ Sample contain the following mandatory parameters:
 * `label` (type: `int`) -- for training only, denotes a class; 
     * value in range `[0, c]`, where `c` corresponds to classes amount.
 * `text` (type: `str` or `list`) -- string of terms, separated by ` ` (whitespace), or list of terms in case of `jsonl` fomat;
-* `s_ind` (type: `int`) -- index of the **source** term in `text` string/list;
-* `t_ind` (type: `int`) -- index of the **target** term in `text` string/list;
 
 Optional parameters:  
+* `s_ind` (type: `int`) -- index of the **source** term in `text` string/list;
+* `t_ind` (type: `int`) -- index of the **target** term in `text` string/list;
 * `opinion_id` (type: `uint`) -- used for grouping opinions, denoting index in group;
 * `entities` (type: `str`) -- comma separated term indices which corresponds to entities, in order of their appearance in text
 * `frames` (type: `str`) -- comma separated term indices which corresponds to connotation frames, in order of their appearance in text; 

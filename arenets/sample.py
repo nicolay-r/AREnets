@@ -178,8 +178,8 @@ class InputSample(InputSampleBase):
         """
         assert(isinstance(terms, list))
         assert(isinstance(terms_vocab, dict))
-        assert(isinstance(subj_ind, int) and 0 <= subj_ind < len(terms))
-        assert(isinstance(obj_ind, int) and 0 <= obj_ind < len(terms))
+        assert((isinstance(subj_ind, int) and 0 <= subj_ind < len(terms)) or subj_ind is None)
+        assert((isinstance(obj_ind, int) and 0 <= obj_ind < len(terms)) or obj_ind is None)
         assert(isinstance(input_shapes, NetworkInputShapes))
         assert(isinstance(entity_inds, list) or entity_inds is None)
         assert((isinstance(syn_subj_inds, list) and len(syn_subj_inds) > 0) or syn_subj_inds is None)
@@ -198,7 +198,14 @@ class InputSample(InputSampleBase):
         def get_end_offset():
             return x_feature.EndIndex
 
+        if len(terms) < 2:
+            raise Exception("AREnets does not support the input amount of tokens less than 2 due "
+                            "to assignation of the [subj] and [obj] towards the different terms"
+                            "in text in case of the most part of the models")
+
         # Setup default parameters.
+        subj_ind = 0 if subj_ind is None else subj_ind
+        obj_ind = 1 if obj_ind is None else obj_ind
         entity_inds = [] if entity_inds is None else entity_inds
         frame_inds = [] if frame_inds is None else frame_inds
         frame_connotations = [] if frame_connotations is None else frame_connotations
