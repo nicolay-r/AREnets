@@ -10,7 +10,7 @@ from arenets.core.callback.hidden_input import InputHiddenStatesWriterCallback
 from arenets.core.feeding.bags.collection.single import SingleBagsCollection
 from arenets.core.model_io import TensorflowNeuralNetworkModelIO
 from arenets.core.predict.provider.id_and_binary_labels import IdAndBinaryLabelsPredictProvider
-from arenets.core.writer.csv_writer import CsvGzipContentWriter
+from arenets.core.writer.csv_writer import CsvContentWriter
 from arenets.emb_converter import convert_text_embedding_if_needed
 from arenets.enum_input_types import ModelInputType
 from arenets.enum_name_types import ModelNames
@@ -29,7 +29,7 @@ def predict(input_data_dir, output_dir, labels_count,
             bags_per_minibatch=32,
             reader=JsonlReader(),
             predict_provider=IdAndBinaryLabelsPredictProvider(),
-            predict_writer=CsvGzipContentWriter(),
+            predict_writer=CsvContentWriter(),
             model_name=ModelNames.CNN,
             data_type=DataType.Test,
             word2vec_txt_model_name="model.txt",
