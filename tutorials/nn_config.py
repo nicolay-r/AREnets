@@ -7,5 +7,5 @@ def modify_config(config):
         derivatives classes from it, if necessary.
     """
     assert(isinstance(config, DefaultNetworkConfig))
-    config.modify_terms_per_context(50)
-    config.modify_dropout_keep_prob(0.8)
+    config.modify_terms_per_context(200)                # Input size.
+    config.modify_dropout_keep_prob(0.8)                # Dropout probability for keeping in case of output layer.
