@@ -13,13 +13,13 @@ from nn_config import modify_config
 input_data_dir = "_data"
 model_name = ModelNames.CNN
 
-train(input_data_dir=input_data_dir,
-      labels_count=3,
-      model_name=model_name,
-      epochs_count=20,
-      bags_per_minibatch=32,
-      learning_rate=0.01,
-      reader=JsonlReader(),
+train(input_data_dir=input_data_dir,      # Input data where all the information required for input is stored.
+      labels_count=3,                     # Amount of labels in the classification task.
+      model_name=model_name,              # Name (enum type) from the list of the predefined models.
+      epochs_count=20,                    # Total amount of epochs to consider for training.
+      bags_per_minibatch=32,              # Batch size
+      learning_rate=0.01,                 # Task learning rate.
+      reader=JsonlReader(),               # Input format: JSONL by default.
       modify_config_func=modify_config,
       callbacks=[
           TrainingLimiterCallback(train_acc_limit=1.0),
