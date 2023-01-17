@@ -8,10 +8,10 @@ class InputSampleBase(object):
 
     def __init__(self, shift_index_dbg, input_sample_id, values):
         assert(isinstance(shift_index_dbg, int))
-        assert(isinstance(input_sample_id, str))
+        assert(isinstance(input_sample_id, str) or isinstance(input_sample_id, int))
         assert(isinstance(values, list))
         self._shift_index_dbg = shift_index_dbg
-        self.__input_sample_id = input_sample_id
+        self.__input_sample_id = str(input_sample_id) if isinstance(input_sample_id, int) else input_sample_id
         self.__values = OrderedDict(values)
 
     # region properties
