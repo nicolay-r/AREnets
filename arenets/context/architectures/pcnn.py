@@ -44,7 +44,7 @@ class PiecewiseCNN(VanillaCNN):
 
         # Max Pooling
         bwgc_mpool = tf.nn.max_pool2d(
-                value=sliced,
+                input=sliced,
                 ksize=[1, 1, self.Config.TermsPerContext, 1],
                 strides=[1, 1, self.Config.TermsPerContext, 1],
                 padding='VALID',

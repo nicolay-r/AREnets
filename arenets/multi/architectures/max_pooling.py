@@ -29,7 +29,7 @@ class MaxPoolingOverSentences(BaseMultiInstanceSingleMLP):
     def __contexts_max_pooling(context_outputs, contexts_per_opinion):
         context_outputs = tf.expand_dims(context_outputs, 0)     # [1, batches, sentences, embedding]
         context_outputs = tf.nn.max_pool2d(
-            value=context_outputs,
+            input=context_outputs,
             ksize=[1, 1, contexts_per_opinion, 1],
             strides=[1, 1, contexts_per_opinion, 1],
             padding='VALID',
