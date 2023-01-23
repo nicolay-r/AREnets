@@ -59,9 +59,6 @@ import tensorflow as tf
 
 class AttentionSelfPZhouCNNConfig(CNNConfig):
 
-    def __init__(self):
-        super(AttentionSelfPZhouCNNConfig, self).__init__()
-
     @property
     def BiasInitializer(self):
         return tf.constant_initializer(0.1)
