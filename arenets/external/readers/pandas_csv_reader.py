@@ -9,11 +9,13 @@ class PandasCsvReader(BaseReader):
         We test this under: pandas==0.25.3
     """
 
-    def __init__(self, sep='\t', header='infer', compression='infer', encoding='utf-8', col_types=None):
+    def __init__(self, sep='\t', header='infer', compression='infer', encoding='utf-8', col_types=None,
+                 target_extension=".tsv.gz"):
         self.__sep = sep
         self.__compression = compression
         self.__encoding = encoding
         self.__header = header
+        self.__target_extension = target_extension
 
         # Speciall assignation of types for certain columns.
         self.__col_types = col_types
@@ -33,4 +35,4 @@ class PandasCsvReader(BaseReader):
         return PandasBasedRowsStorage(df)
 
     def target_extension(self):
-        return ".tsv.gz"
+        return self.__target_extension
