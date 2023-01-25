@@ -129,7 +129,7 @@ Predict `test` results for pre-trained `cnn` model and saves them into `_out` fo
 ## FAQ
 
 #### [How to prepare input data?](docs/input_data.md)
-#### [How to setup `jsonl` or `csv` data reader?](data/input_readers.md)
+#### [How to setup `jsonl` or `csv` data reader?](docs/input_readers.md)
 #### [How to implement a custom model with attention?](docs/tutorial_attention.md)
 #### [How to customize the prediction output?](docs/tutorial_predict_output.md)
 

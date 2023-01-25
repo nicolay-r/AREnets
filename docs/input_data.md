@@ -3,7 +3,7 @@
 Input data might be in a form of `.jsoln`
 [[example]](../tutorials/_data/sample-train.jsonl)
 or `csv`
-[[example]](../tutorials/_data/sample-train.csv).
+[[example]](../tutorials/_data/sample-train.tsv.gz).
 
 Input represents list/rows of *samples*. 
 Every sample contains text and mentioned **opinion** in it, i.e. `source->target` relation.
