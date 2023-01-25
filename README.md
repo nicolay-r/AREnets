@@ -150,8 +150,8 @@ if you use or extend our work, please cite as follows:
 ```
 @misc{arenets2023,
   author={Nicolay Rusnachenko},
-  title={AREnets: Tensorflow-based framework of neural-network applicable 
-         models for attitude and relation extraction tasks},
+  title={{AREnets}: Tensorflow-based framework of attentive neural-network 
+         models for text classfication and relation extraction tasks},
   year={2023},
   url={https://github.com/nicolay-r/AREnets},
 }
