@@ -147,7 +147,8 @@ This project has been tested under the following setup:
 Our one and my personal interest is to help you better explore and analyze attitude and relation extraction related tasks with AREnets.
 A great research is also accompanied with the faithful reference.
 if you use or extend our work, please cite as follows:
-```
+
+```bibtex
 @misc{arenets2023,
   author={Nicolay Rusnachenko},
   title={{AREnets}: Tensorflow-based framework of attentive neural-network 
