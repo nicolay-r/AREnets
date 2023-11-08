@@ -16,12 +16,15 @@ def get_requirements(filenames):
 setup(
     name='arenets',
     version='0.23.0',
+    python_requires=">=3.6, <3.7",
     description='Tensorflow-based framework which lists implementation of conventional neural '
                 'network models (CNN, RNN-based) for Relation Extraction classification tasks '
                 'as well as API for custom model implementation',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     url='https://github.com/nicolay-r/AREnets',
     author='Nicolay Rusnachenko',
-    author_email='???',
+    author_email='rusnicolay@gmail.com',
     license='MIT License',
     classifiers=[
         'Programming Language :: Python',
@@ -34,4 +37,5 @@ setup(
     install_requires=get_requirements([
         'dependencies.txt'
     ]),
+    data_files=["logo.png"],
 )
