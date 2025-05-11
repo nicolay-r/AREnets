@@ -3,6 +3,7 @@
 ![](https://img.shields.io/badge/Python-3.6.9-brightgreen.svg)
 ![](https://img.shields.io/badge/Tensorflow-1.14-orange.svg)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nicolay-r/AREnets/blob/master/arenets_colab_tutorial.ipynb)
+[![PyPI downloads](https://img.shields.io/pypi/dm/arenets.svg)](https://pypistats.org/packages/arenets)
 
 <p align="center">
     <img src="logo.png"/>
