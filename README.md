@@ -105,8 +105,6 @@ Predict `test` results for pre-trained `cnn` model and saves them into `_out` fo
     - RCNN (BiLSTM + CNN)
         [[code]](arenets/context/architectures/rcnn.py) /
         [[github:roomylee]](https://github.com/roomylee/rcnn-text-classification);
-    - RCNN + Self Attention
-        [[code]](arenets/context/architectures/rcnn_self.py);
     - BiLSTM
         [[code]](arenets/context/architectures/bilstm.py) /
         [[github:roomylee]](https://github.com/roomylee/rnn-text-classification-tf);
